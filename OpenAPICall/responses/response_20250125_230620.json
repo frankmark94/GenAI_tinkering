@@ -1,0 +1,8 @@
+{
+  "error": "Invalid request format for response capabilities.",
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 15,
+    "total_tokens": 106
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schema": {
+    "table_name": "chick_fil_a",
+    "columns": [
+      {
+        "name": "id",
+        "type": "serial",
+        "constraints": "primary key"
+      },
+      {
+        "name": "menu_item",
+        "type": "varchar(255)",
+        "constraints": "not null"
+      },
+      {
+        "name": "price",
+        "type": "numeric",
+        "constraints": "not null"
+      },
+      {
+        "name": "category",
+        "type": "varchar(50)",
+        "constraints": ""
+      },
+      {
+        "name": "calories",
+        "type": "integer",
+        "constraints": ""
+      },
+      {
+        "name": "ingredients",
+        "type": "text",
+        "constraints": ""
+      }
+    ],
+    "sql": "CREATE TABLE chick_fil_a (id serial primary key, menu_item varchar(255) not null, price numeric not null, category varchar(50), calories integer, ingredients text)"
+  },
+  "sample_data": [
+    {
+      "menu_item": "Chick-fil-A\u00ae Chicken Sandwich",
+      "price": 3.65,
+      "category": "Sandwich",
+      "calories": 440,
+      "ingredients": "Chicken Breast Fillet, Pickles, Buttered Bun"
+    },
+    {
+      "menu_item": "Waffle Potato Fries",
+      "price": 2.15,
+      "category": "Side",
+      "calories": 360,
+      "ingredients": "Potatoes, Vegetable Oil (Canola Oil, Corn Oil, Soybean Oil, Hydrogenated Soybean Oil), Sea Salt, Dextrose, Sodium Acid Pyrophosphate"
+    },
+    {
+      "menu_item": "Spicy Deluxe Sandwich",
+      "price": 4.75,
+      "category": "Sandwich",
+      "calories": 570,
+      "ingredients": "Spicy Chicken Breast, Pickles, Spicy Seasoning, Buttered Bun"
+    },
+    {
+      "menu_item": "Grilled Chicken Cool Wrap",
+      "price": 6.45,
+      "category": "Wrap",
+      "calories": 350,
+      "ingredients": "Grilled Chicken, Lettuce, Red Cabbage, Carrots, Cheese, Flaxseed Flour Flat Bread, Honey Sesame Dressing"
+    },
+    {
+      "menu_item": "Frosted Lemonade",
+      "price": 3.25,
+      "category": "Beverage",
+      "calories": 330,
+      "ingredients": "Lemonade, Icedream\u00ae"
+    }
+  ]
+}

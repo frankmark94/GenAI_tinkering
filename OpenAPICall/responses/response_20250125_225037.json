@@ -1,0 +1,84 @@
+{
+  "top_smartest_people": [
+    {
+      "name": "Leonardo da Vinci",
+      "country": "Italy"
+    },
+    {
+      "name": "Albert Einstein",
+      "country": "Germany"
+    },
+    {
+      "name": "Isaac Newton",
+      "country": "United Kingdom"
+    },
+    {
+      "name": "Galileo Galilei",
+      "country": "Italy"
+    },
+    {
+      "name": "Aristotle",
+      "country": "Greece"
+    },
+    {
+      "name": "Euclid",
+      "country": "Greece"
+    },
+    {
+      "name": "Plato",
+      "country": "Greece"
+    },
+    {
+      "name": "Nikola Tesla",
+      "country": "Croatia"
+    },
+    {
+      "name": "Michelangelo",
+      "country": "Italy"
+    },
+    {
+      "name": "Archimedes",
+      "country": "Greece"
+    },
+    {
+      "name": "Socrates",
+      "country": "Greece"
+    },
+    {
+      "name": "Thomas Edison",
+      "country": "United States"
+    },
+    {
+      "name": "Rene Descartes",
+      "country": "France"
+    },
+    {
+      "name": "Ludwig van Beethoven",
+      "country": "Germany"
+    },
+    {
+      "name": "Leonhard Euler",
+      "country": "Switzerland"
+    },
+    {
+      "name": "Johannes Kepler",
+      "country": "Germany"
+    },
+    {
+      "name": "Nicolaus Copernicus",
+      "country": "Poland"
+    },
+    {
+      "name": "Stephen Hawking",
+      "country": "United Kingdom"
+    },
+    {
+      "name": "Marie Curie",
+      "country": "Poland"
+    },
+    {
+      "name": "Immanuel Kant",
+      "country": "Germany"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "temperature": "75\u00b0F",
+  "conditions": "Partly Cloudy",
+  "humidity": "62%",
+  "wind_speed": "7 mph",
+  "forecast": "Partly cloudy throughout the day.",
+  "usage": {
+    "prompt_tokens": 146,
+    "completion_tokens": 49,
+    "total_tokens": 195
+  }
+}

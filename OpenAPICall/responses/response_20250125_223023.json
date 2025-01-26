@@ -1,0 +1,70 @@
+{
+  "schema": {
+    "table_name": "mcdonalds_locations",
+    "columns": [
+      {
+        "name": "location_id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "location_name",
+        "type": "VARCHAR(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "address",
+        "type": "VARCHAR(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "city",
+        "type": "VARCHAR(100)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "country",
+        "type": "VARCHAR(100)",
+        "constraints": "NOT NULL"
+      }
+    ],
+    "sql": "CREATE TABLE mcdonalds_locations (location_id INT PRIMARY KEY, location_name VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, city VARCHAR(100) NOT NULL, country VARCHAR(100) NOT NULL)"
+  },
+  "sample_data": [
+    {
+      "location_id": 1,
+      "location_name": "McDonald's Times Square",
+      "address": "1530 Broadway",
+      "city": "New York",
+      "country": "USA"
+    },
+    {
+      "location_id": 2,
+      "location_name": "McDonald's Leicester Square",
+      "address": "22 Leicester Square",
+      "city": "London",
+      "country": "UK"
+    },
+    {
+      "location_id": 3,
+      "location_name": "McDonald's Champs-Elys\u00e9es",
+      "address": "140 Avenue des Champs-\u00c9lys\u00e9es",
+      "city": "Paris",
+      "country": "France"
+    },
+    {
+      "location_id": 4,
+      "location_name": "McDonald's Ginza",
+      "address": "5 Chome-2-1 Ginza",
+      "city": "Tokyo",
+      "country": "Japan"
+    },
+    {
+      "location_id": 5,
+      "location_name": "McDonald's Circular Quay",
+      "address": "Circular Quay",
+      "city": "Sydney",
+      "country": "Australia"
+    }
+  ]
+}

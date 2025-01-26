@@ -1,0 +1,4 @@
+{
+  "error": "Response was not in valid JSON format",
+  "raw_response": "1. Tesla Model 3 - Tesla - $0.02 per token\n2. Ford F-150 - Ford - $0.03 per token\n3. Toyota Camry - Toyota - $0.02 per token\n4. Honda Civic - Honda - $0.02 per token\n5. Chevrolet Silverado - Chevrolet - $0.03 per token\n6. BMW 3 Series - BMW - $0.05 per token\n7. Mercedes-Benz C-Class - Mercedes-Benz - $0.06 per token\n8. Jeep Wrangler - Jeep - $0.04 per token\n9. Volkswagen Golf - Volkswagen - $0.03 per token\n10. Subaru Outback - Subaru - $0.04 per token"
+}

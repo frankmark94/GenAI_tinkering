@@ -1,0 +1,60 @@
+{
+  "schema": {
+    "table_name": "chick_fil_a_restaurant",
+    "columns": [
+      {
+        "name": "restaurant_id",
+        "type": "integer",
+        "constraints": "primary key"
+      },
+      {
+        "name": "location",
+        "type": "varchar(255)",
+        "constraints": "not null"
+      },
+      {
+        "name": "opening_hours",
+        "type": "time",
+        "constraints": "not null"
+      },
+      {
+        "name": "manager_id",
+        "type": "integer",
+        "constraints": "foreign key references manager(manager_id)"
+      }
+    ],
+    "sql": "CREATE TABLE chick_fil_a_restaurant (restaurant_id integer primary key, location varchar(255) not null, opening_hours time not null, manager_id integer, foreign key (manager_id) references manager(manager_id));"
+  },
+  "sample_data": [
+    {
+      "restaurant_id": 1,
+      "location": "123 Main St, City, Country",
+      "opening_hours": "08:00:00",
+      "manager_id": 101
+    },
+    {
+      "restaurant_id": 2,
+      "location": "456 Elm St, City, Country",
+      "opening_hours": "07:30:00",
+      "manager_id": 102
+    },
+    {
+      "restaurant_id": 3,
+      "location": "789 Oak St, City, Country",
+      "opening_hours": "09:00:00",
+      "manager_id": 103
+    },
+    {
+      "restaurant_id": 4,
+      "location": "321 Pine St, City, Country",
+      "opening_hours": "08:30:00",
+      "manager_id": 104
+    },
+    {
+      "restaurant_id": 5,
+      "location": "654 Maple St, City, Country",
+      "opening_hours": "10:00:00",
+      "manager_id": 105
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "schema": {
+    "table_name": "sex_shop_products",
+    "columns": [
+      {
+        "name": "product_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "product_name",
+        "type": "varchar(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "price",
+        "type": "decimal(10, 2)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "category_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES categories(category_id)"
+      }
+    ],
+    "sql": "CREATE TABLE sex_shop_products (product_id int PRIMARY KEY, product_name varchar(255) NOT NULL, price decimal(10, 2) NOT NULL, category_id int, FOREIGN KEY (category_id) REFERENCES categories(category_id))"
+  },
+  "sample_data": [
+    {
+      "product_id": 1,
+      "product_name": "Vibrator",
+      "price": 29.99,
+      "category_id": 1
+    },
+    {
+      "product_id": 2,
+      "product_name": "Lingerie Set",
+      "price": 39.99,
+      "category_id": 2
+    },
+    {
+      "product_id": 3,
+      "product_name": "Bondage Kit",
+      "price": 49.99,
+      "category_id": 3
+    },
+    {
+      "product_id": 4,
+      "product_name": "Massage Oil",
+      "price": 9.99,
+      "category_id": 4
+    },
+    {
+      "product_id": 5,
+      "product_name": "Handcuffs",
+      "price": 19.99,
+      "category_id": 3
+    }
+  ]
+}

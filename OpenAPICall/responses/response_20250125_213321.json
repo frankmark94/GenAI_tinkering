@@ -1,0 +1,4 @@
+{
+  "error": "Response was not in valid JSON format",
+  "raw_response": "Hey, what's up?"
+}

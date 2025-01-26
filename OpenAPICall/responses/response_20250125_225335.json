@@ -1,0 +1,124 @@
+{
+  "presidents": [
+    {
+      "name": "Joseph R. Biden Jr.",
+      "date_of_birth": "1942-11-20",
+      "state_born_in": "Pennsylvania",
+      "party": "Democratic"
+    },
+    {
+      "name": "Donald J. Trump",
+      "date_of_birth": "1946-06-14",
+      "state_born_in": "New York",
+      "party": "Republican"
+    },
+    {
+      "name": "Barack H. Obama",
+      "date_of_birth": "1961-08-04",
+      "state_born_in": "Hawaii",
+      "party": "Democratic"
+    },
+    {
+      "name": "George W. Bush",
+      "date_of_birth": "1946-07-06",
+      "state_born_in": "Connecticut",
+      "party": "Republican"
+    },
+    {
+      "name": "William J. Clinton",
+      "date_of_birth": "1946-08-19",
+      "state_born_in": "Arkansas",
+      "party": "Democratic"
+    },
+    {
+      "name": "George H. W. Bush",
+      "date_of_birth": "1924-06-12",
+      "state_born_in": "Massachusetts",
+      "party": "Republican"
+    },
+    {
+      "name": "Ronald Reagan",
+      "date_of_birth": "1911-02-06",
+      "state_born_in": "Illinois",
+      "party": "Republican"
+    },
+    {
+      "name": "Jimmy Carter",
+      "date_of_birth": "1924-10-01",
+      "state_born_in": "Georgia",
+      "party": "Democratic"
+    },
+    {
+      "name": "Gerald Ford",
+      "date_of_birth": "1913-07-14",
+      "state_born_in": "Nebraska",
+      "party": "Republican"
+    },
+    {
+      "name": "Richard Nixon",
+      "date_of_birth": "1913-01-09",
+      "state_born_in": "California",
+      "party": "Republican"
+    },
+    {
+      "name": "Lyndon B. Johnson",
+      "date_of_birth": "1908-08-27",
+      "state_born_in": "Texas",
+      "party": "Democratic"
+    },
+    {
+      "name": "John F. Kennedy",
+      "date_of_birth": "1917-05-29",
+      "state_born_in": "Massachusetts",
+      "party": "Democratic"
+    },
+    {
+      "name": "Dwight D. Eisenhower",
+      "date_of_birth": "1890-10-14",
+      "state_born_in": "Texas",
+      "party": "Republican"
+    },
+    {
+      "name": "Harry S. Truman",
+      "date_of_birth": "1884-05-08",
+      "state_born_in": "Missouri",
+      "party": "Democratic"
+    },
+    {
+      "name": "Franklin D. Roosevelt",
+      "date_of_birth": "1882-01-30",
+      "state_born_in": "New York",
+      "party": "Democratic"
+    },
+    {
+      "name": "Herbert Hoover",
+      "date_of_birth": "1874-08-10",
+      "state_born_in": "Iowa",
+      "party": "Republican"
+    },
+    {
+      "name": "Calvin Coolidge",
+      "date_of_birth": "1872-07-04",
+      "state_born_in": "Vermont",
+      "party": "Republican"
+    },
+    {
+      "name": "Warren G. Harding",
+      "date_of_birth": "1865-11-02",
+      "state_born_in": "Ohio",
+      "party": "Republican"
+    },
+    {
+      "name": "Woodrow Wilson",
+      "date_of_birth": "1856-12-28",
+      "state_born_in": "Virginia",
+      "party": "Democratic"
+    },
+    {
+      "name": "William Howard Taft",
+      "date_of_birth": "1857-09-15",
+      "state_born_in": "Ohio",
+      "party": "Republican"
+    }
+  ]
+}

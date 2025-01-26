@@ -1,0 +1,105 @@
+{
+  "schema": {
+    "table_name": "patients",
+    "columns": [
+      {
+        "name": "patient_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "first_name",
+        "type": "varchar(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "last_name",
+        "type": "varchar(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "dob",
+        "type": "date",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "gender",
+        "type": "varchar(10)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "admission_date",
+        "type": "date",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "discharge_date",
+        "type": "date",
+        "constraints": "DEFAULT NULL"
+      },
+      {
+        "name": "doctor_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES doctors(doctor_id)"
+      }
+    ],
+    "sql": "CREATE TABLE patients (patient_id int PRIMARY KEY, first_name varchar(50) NOT NULL, last_name varchar(50) NOT NULL, dob date NOT NULL, gender varchar(10) NOT NULL, admission_date date NOT NULL, discharge_date date DEFAULT NULL, doctor_id int, FOREIGN KEY (doctor_id) REFERENCES doctors(doctor_id))"
+  },
+  "sample_data": [
+    {
+      "patient_id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "dob": "1990-05-15",
+      "gender": "Male",
+      "admission_date": "2022-01-10",
+      "discharge_date": null,
+      "doctor_id": 101
+    },
+    {
+      "patient_id": 2,
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "dob": "1985-08-20",
+      "gender": "Female",
+      "admission_date": "2022-02-05",
+      "discharge_date": null,
+      "doctor_id": 102
+    },
+    {
+      "patient_id": 3,
+      "first_name": "Michael",
+      "last_name": "Johnson",
+      "dob": "1976-11-30",
+      "gender": "Male",
+      "adadmission_date": "2022-03-15",
+      "discharge_date": null,
+      "doctor_id": 103
+    },
+    {
+      "patient_id": 4,
+      "first_name": "Emily",
+      "last_name": "Brown",
+      "dob": "1995-04-25",
+      "gender": "Female",
+      "admission_date": "2022-04-20",
+      "discharge_date": null,
+      "doctor_id": 104
+    },
+    {
+      "patient_id": 5,
+      "first_name": "William",
+      "last_name": "Davis",
+      "dob": "1980-10-10",
+      "gender": "Male",
+      "admission_date": "2022-05-30",
+      "discharge_date": null,
+      "doctor_id": 105
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 211,
+    "completion_tokens": 620,
+    "total_tokens": 831
+  }
+}

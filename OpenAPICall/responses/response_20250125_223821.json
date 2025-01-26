@@ -1,0 +1,70 @@
+{
+  "schema": {
+    "table_name": "menu_items",
+    "columns": [
+      {
+        "name": "item_id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "item_name",
+        "type": "VARCHAR(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "category_id",
+        "type": "INT",
+        "constraints": "FOREIGN KEY REFERENCES categories(category_id)"
+      },
+      {
+        "name": "price",
+        "type": "DECIMAL(10,2)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "calories",
+        "type": "INT",
+        "constraints": "NOT NULL"
+      }
+    ],
+    "sql": "CREATE TABLE menu_items (item_id INT PRIMARY KEY, item_name VARCHAR(255) NOT NULL, category_id INT, price DECIMAL(10,2) NOT NULL, calories INT NOT NULL, FOREIGN KEY (category_id) REFERENCES categories(category_id))"
+  },
+  "sample_data": [
+    {
+      "item_id": 1,
+      "item_name": "Chicken Sandwich",
+      "category_id": 1,
+      "price": 4.99,
+      "calories": 440
+    },
+    {
+      "item_id": 2,
+      "item_name": "Nuggets (8 pieces)",
+      "category_id": 1,
+      "price": 6.49,
+      "calories": 260
+    },
+    {
+      "item_id": 3,
+      "item_name": "Waffle Fries (medium)",
+      "category_id": 2,
+      "price": 2.79,
+      "calories": 420
+    },
+    {
+      "item_id": 4,
+      "item_name": "Coca-Cola (medium)",
+      "category_id": 3,
+      "price": 1.89,
+      "calories": 210
+    },
+    {
+      "item_id": 5,
+      "item_name": "Ice Cream Cone",
+      "category_id": 4,
+      "price": 1.29,
+      "calories": 280
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "schema": {
+    "table_name": "employees",
+    "columns": [
+      {
+        "name": "employee_id",
+        "type": "integer",
+        "constraints": "primary key"
+      },
+      {
+        "name": "first_name",
+        "type": "varchar(50)",
+        "constraints": "not null"
+      },
+      {
+        "name": "last_name",
+        "type": "varchar(50)",
+        "constraints": "not null"
+      },
+      {
+        "name": "hire_date",
+        "type": "date",
+        "constraints": "not null"
+      },
+      {
+        "name": "department_id",
+        "type": "integer",
+        "constraints": "foreign key references departments(department_id)"
+      },
+      {
+        "name": "manager_id",
+        "type": "integer",
+        "constraints": "foreign key references employees(employee_id)"
+      }
+    ],
+    "sql": "CREATE TABLE employees (employee_id integer primary key, first_name varchar(50) not null, last_name varchar(50) not null, hire_date date not null, department_id integer, manager_id integer, foreign key (department_id) references departments(department_id), foreign key (manager_id) references employees(employee_id))"
+  },
+  "sample_data": [
+    {
+      "employee_id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "hire_date": "2021-01-15",
+      "department_id": 1,
+      "manager_id": null
+    },
+    {
+      "employee_id": 2,
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "hire_date": "2020-05-20",
+      "department_id": 2,
+      "manager_id": 1
+    },
+    {
+      "employee_id": 3,
+      "first_name": "David",
+      "last_name": "Brown",
+      "hire_date": "2019-11-10",
+      "department_id": 1,
+      "manager_id": 1
+    },
+    {
+      "employee_id": 4,
+      "first_name": "Emily",
+      "last_name": "Johnson",
+      "hire_date": "2018-03-25",
+      "department_id": 2,
+      "manager_id": 3
+    },
+    {
+      "employee_id": 5,
+      "first_name": "Michael",
+      "last_name": "Williams",
+      "hire_date": "2017-08-30",
+      "department_id": 1,
+      "manager_id": 3
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 245,
+    "completion_tokens": 483,
+    "total_tokens": 728
+  }
+}

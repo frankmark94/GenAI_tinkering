@@ -1,0 +1,90 @@
+{
+  "schema": {
+    "table_name": "poop_records",
+    "columns": [
+      {
+        "name": "id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "color",
+        "type": "VARCHAR(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "texture",
+        "type": "VARCHAR(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "size",
+        "type": "DECIMAL(5,2)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "odor",
+        "type": "VARCHAR(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "date_recorded",
+        "type": "DATE",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "location_id",
+        "type": "INT",
+        "constraints": "NOT NULL, FOREIGN KEY (location_id) REFERENCES locations(id)"
+      }
+    ],
+    "sql": "CREATE TABLE poop_records (id INT PRIMARY KEY, color VARCHAR(50) NOT NULL, texture VARCHAR(50) NOT NULL, size DECIMAL(5,2) NOT NULL, odor VARCHAR(50) NOT NULL, date_recorded DATE NOT NULL, location_id INT NOT NULL, FOREIGN KEY (location_id) REFERENCES locations(id))"
+  },
+  "sample_data": [
+    {
+      "id": 1,
+      "color": "Brown",
+      "texture": "Soft",
+      "size": 0.3,
+      "odor": "Mild",
+      "date_recorded": "2022-09-15",
+      "location_id": 1
+    },
+    {
+      "id": 2,
+      "color": "Green",
+      "texture": "Solid",
+      "size": 0.5,
+      "odor": "Strong",
+      "date_recorded": "2022-09-16",
+      "location_id": 2
+    },
+    {
+      "id": 3,
+      "color": "Yellow",
+      "texture": "Liquid",
+      "size": 0.7,
+      "odor": "Pungent",
+      "date_recorded": "2022-09-17",
+      "location_id": 1
+    },
+    {
+      "id": 4,
+      "color": "Black",
+      "texture": "Soft",
+      "size": 0.4,
+      "odor": "Foul",
+      "date_recorded": "2022-09-18",
+      "location_id": 3
+    },
+    {
+      "id": 5,
+      "color": "Red",
+      "texture": "Solid",
+      "size": 0.6,
+      "odor": "Sweet",
+      "date_recorded": "2022-09-19",
+      "location_id": 2
+    }
+  ]
+}

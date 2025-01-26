@@ -1,0 +1,81 @@
+{
+  "performanceAnalysis": [
+    {
+      "company": "Apple Inc.",
+      "overview": "Leading innovator in personal electronics, software, and services.",
+      "inventions": [
+        {
+          "inventor": "Steve Jobs",
+          "year": 2010,
+          "impactFactor": "High",
+          "details": "Introduction of the iPad, revolutionizing the tablet market."
+        },
+        {
+          "inventor": "Tim Cook",
+          "year": 2014,
+          "impactFactor": "Moderate",
+          "details": "Launch of Apple Pay, promoting the growth of mobile payment systems."
+        }
+      ]
+    },
+    {
+      "company": "Amazon.com, Inc.",
+      "overview": "E-commerce leader and cloud computing giant.",
+      "inventions": [
+        {
+          "inventor": "Jeff Bezos",
+          "year": 2012,
+          "impactFactor": "High",
+          "details": "Expansion of Amazon Web Services, solidifying its dominance in cloud computing."
+        },
+        {
+          "inventor": "Jeff Bezos",
+          "year": 2015,
+          "impactFactor": "High",
+          "details": "Introduction of Amazon Echo, pioneering the smart speaker market."
+        }
+      ]
+    },
+    {
+      "company": "Tesla, Inc.",
+      "overview": "Front-runner in electric vehicles and clean energy.",
+      "inventions": [
+        {
+          "inventor": "Elon Musk",
+          "year": 2012,
+          "impactFactor": "High",
+          "details": "Release of Model S, significantly advancing electric vehicle technology and adoption."
+        },
+        {
+          "inventor": "Elon Musk",
+          "year": 2015,
+          "impactFactor": "High",
+          "details": "Introduction of Powerwall, enhancing energy storage solutions for renewable energy."
+        }
+      ]
+    },
+    {
+      "company": "Alphabet Inc.",
+      "overview": "Technology conglomerate known for its search engine and innovations in AI and autonomous driving.",
+      "inventions": [
+        {
+          "inventor": "Sergey Brin",
+          "year": 2011,
+          "impactFactor": "Moderate",
+          "details": "Launch of Google+, an attempt to enter the social networking space."
+        },
+        {
+          "inventor": "John Krafcik",
+          "year": 2015,
+          "impactFactor": "High",
+          "details": "Development of Waymo, pioneering self-driving car technology."
+        }
+      ]
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 117,
+    "completion_tokens": 550,
+    "total_tokens": 667
+  }
+}

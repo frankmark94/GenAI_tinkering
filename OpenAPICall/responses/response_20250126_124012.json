@@ -1,0 +1,39 @@
+{
+  "sportsTeams": [
+    {
+      "teamName": "Chicago Bulls",
+      "era": "1990s",
+      "innovation": "Triangle Offense",
+      "stats": {
+        "publicationYear": 1993,
+        "author": "Phil Jackson",
+        "salesFigures": "Not Available"
+      }
+    },
+    {
+      "teamName": "FC Barcelona",
+      "era": "2000s",
+      "innovation": "Tiki-Taka Football",
+      "stats": {
+        "publicationYear": 2011,
+        "author": "Pep Guardiola",
+        "salesFigures": "Not Available"
+      }
+    },
+    {
+      "teamName": "New Zealand All Blacks",
+      "era": "2010s",
+      "innovation": "All-around Skill Set in Rugby",
+      "stats": {
+        "publicationYear": 2015,
+        "author": "Steve Hansen",
+        "salesFigures": "Not Available"
+      }
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 118,
+    "completion_tokens": 218,
+    "total_tokens": 336
+  }
+}

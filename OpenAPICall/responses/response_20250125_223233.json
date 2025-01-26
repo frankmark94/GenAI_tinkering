@@ -1,0 +1,100 @@
+{
+  "schema": {
+    "table_name": "most_powerful_business",
+    "columns": [
+      {
+        "name": "business_id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "business_name",
+        "type": "VARCHAR(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "industry",
+        "type": "VARCHAR(100)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "founded_year",
+        "type": "INT",
+        "constraints": ""
+      },
+      {
+        "name": "revenue",
+        "type": "DECIMAL(15, 2)",
+        "constraints": ""
+      },
+      {
+        "name": "ceo_name",
+        "type": "VARCHAR(100)",
+        "constraints": ""
+      },
+      {
+        "name": "hq_location",
+        "type": "VARCHAR(255)",
+        "constraints": ""
+      },
+      {
+        "name": "parent_company_id",
+        "type": "INT",
+        "constraints": "FOREIGN KEY REFERENCES most_powerful_business(business_id)"
+      }
+    ],
+    "sql": "CREATE TABLE most_powerful_business (business_id INT PRIMARY KEY, business_name VARCHAR(255) NOT NULL, industry VARCHAR(100) NOT NULL, founded_year INT, revenue DECIMAL(15, 2), ceo_name VARCHAR(100), hq_location VARCHAR(255), parent_company_id INT, FOREIGN KEY (parent_company_id) REFERENCES most_powerful_business(business_id))"
+  },
+  "sample_data": [
+    {
+      "business_id": 1,
+      "business_name": "MegaCorp",
+      "industry": "Technology",
+      "founded_year": 1995,
+      "revenue": 5000000000.0,
+      "ceo_name": "Alice Johnson",
+      "hq_location": "Silicon Valley",
+      "parent_company_id": null
+    },
+    {
+      "business_id": 2,
+      "business_name": "GlobalCom",
+      "industry": "Telecommunications",
+      "founded_year": 1980,
+      "revenue": 8000000000.5,
+      "ceo_name": "John Smith",
+      "hq_location": "New York City",
+      "parent_company_id": null
+    },
+    {
+      "business_id": 3,
+      "business_name": "PowerIndustries",
+      "industry": "Energy",
+      "founded_year": 1975,
+      "revenue": 3000000000.75,
+      "ceo_name": "Emily White",
+      "hq_location": "Houston",
+      "parent_company_id": null
+    },
+    {
+      "business_id": 4,
+      "business_name": "GlobalRetail",
+      "industry": "Retail",
+      "founded_year": 1990,
+      "revenue": 7000000000.25,
+      "ceo_name": "Michael Brown",
+      "hq_location": "Chicago",
+      "parent_company_id": null
+    },
+    {
+      "business_id": 5,
+      "business_name": "FinancialMasters",
+      "industry": "Finance",
+      "founded_year": 1985,
+      "revenue": 6000000000.99,
+      "ceo_name": "Sarah Davis",
+      "hq_location": "Wall Street",
+      "parent_company_id": null
+    }
+  ]
+}

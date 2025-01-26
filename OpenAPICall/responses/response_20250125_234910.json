@@ -1,0 +1,8 @@
+{
+  "error": "Invalid request. Requested data does not align with available data types for processing.",
+  "usage": {
+    "prompt_tokens": 120,
+    "completion_tokens": 24,
+    "total_tokens": 144
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "schema": {
+    "table_name": "mcdonalds_locations",
+    "columns": [
+      {
+        "name": "location_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "location_name",
+        "type": "varchar(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "city",
+        "type": "varchar(100)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "country",
+        "type": "varchar(100)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "manager_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES managers(manager_id)"
+      }
+    ],
+    "sql": "CREATE TABLE mcdonalds_locations (location_id int PRIMARY KEY, location_name varchar(255) NOT NULL, city varchar(100) NOT NULL, country varchar(100) NOT NULL, manager_id int, FOREIGN KEY (manager_id) REFERENCES managers(manager_id))"
+  },
+  "sample_data": [
+    {
+      "location_id": 1,
+      "location_name": "McDonald's Times Square",
+      "city": "New York",
+      "country": "USA",
+      "manager_id": 101
+    },
+    {
+      "location_id": 2,
+      "location_name": "McDonald's Leicester Square",
+      "city": "London",
+      "country": "UK",
+      "manager_id": 102
+    },
+    {
+      "location_id": 3,
+      "location_name": "McDonald's Shibuya",
+      "city": "Tokyo",
+      "country": "Japan",
+      "manager_id": 103
+    },
+    {
+      "location_id": 4,
+      "location_name": "McDonald's Opera Paris",
+      "city": "Paris",
+      "country": "France",
+      "manager_id": 104
+    },
+    {
+      "location_id": 5,
+      "location_name": "McDonald's Circular Quay",
+      "city": "Sydney",
+      "country": "Australia",
+      "manager_id": 105
+    }
+  ]
+}

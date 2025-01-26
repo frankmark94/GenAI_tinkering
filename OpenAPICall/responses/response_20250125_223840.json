@@ -1,0 +1,70 @@
+{
+  "schema": {
+    "table_name": "menu_items",
+    "columns": [
+      {
+        "name": "item_id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "item_name",
+        "type": "VARCHAR(255)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "category_id",
+        "type": "INT",
+        "constraints": "FOREIGN KEY REFERENCES categories(category_id)"
+      },
+      {
+        "name": "price",
+        "type": "DECIMAL(10, 2)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "calories",
+        "type": "INT",
+        "constraints": ""
+      }
+    ],
+    "sql": "CREATE TABLE menu_items (item_id INT PRIMARY KEY, item_name VARCHAR(255) NOT NULL, category_id INT, price DECIMAL(10, 2) NOT NULL, calories INT, FOREIGN KEY (category_id) REFERENCES categories(category_id))"
+  },
+  "sample_data": [
+    {
+      "item_id": 1,
+      "item_name": "Big Mac",
+      "category_id": 1,
+      "price": 5.99,
+      "calories": 563
+    },
+    {
+      "item_id": 2,
+      "item_name": "French Fries",
+      "category_id": 2,
+      "price": 2.49,
+      "calories": 365
+    },
+    {
+      "item_id": 3,
+      "item_name": "McFlurry",
+      "category_id": 3,
+      "price": 3.99,
+      "calories": 510
+    },
+    {
+      "item_id": 4,
+      "item_name": "Chicken McNuggets",
+      "category_id": 4,
+      "price": 4.99,
+      "calories": 440
+    },
+    {
+      "item_id": 5,
+      "item_name": "Filet-O-Fish",
+      "category_id": 1,
+      "price": 4.49,
+      "calories": 390
+    }
+  ]
+}

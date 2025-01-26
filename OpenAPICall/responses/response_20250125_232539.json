@@ -1,0 +1,65 @@
+{
+  "schema": {
+    "table_name": "employees",
+    "columns": [
+      {
+        "name": "employee_id",
+        "type": "int",
+        "constraints": "primary key"
+      },
+      {
+        "name": "name",
+        "type": "varchar(255)",
+        "constraints": "not null"
+      },
+      {
+        "name": "position",
+        "type": "varchar(100)",
+        "constraints": "not null"
+      },
+      {
+        "name": "manager_id",
+        "type": "int",
+        "constraints": "foreign key references employees(employee_id) on delete cascade"
+      }
+    ],
+    "sql": "CREATE TABLE employees (employee_id int primary key, name varchar(255) not null, position varchar(100) not null, manager_id int, foreign key (manager_id) references employees(employee_id) on delete cascade)"
+  },
+  "sample_data": [
+    {
+      "employee_id": 1,
+      "name": "John Doe",
+      "position": "Manager",
+      "manager_id": null
+    },
+    {
+      "employee_id": 2,
+      "name": "Jane Smith",
+      "position": "Assistant Manager",
+      "manager_id": 1
+    },
+    {
+      "employee_id": 3,
+      "name": "Alice Johnson",
+      "position": "Coordinator",
+      "manager_id": 2
+    },
+    {
+      "employee_id": 4,
+      "name": "Bob Brown",
+      "position": "Coordinator",
+      "manager_id": 2
+    },
+    {
+      "employee_id": 5,
+      "name": "Eve White",
+      "position": "Assistant Coordinator",
+      "manager_id": 4
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 241,
+    "completion_tokens": 319,
+    "total_tokens": 560
+  }
+}

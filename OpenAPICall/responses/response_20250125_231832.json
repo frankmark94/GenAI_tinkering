@@ -1,0 +1,57 @@
+{
+  "performance_analysis": {
+    "overview": "This dataset provides a performance analysis of leading fashion brands from 2020 onwards, focusing on various metrics such as student population involved in fashion design studies, research funding allocated for fashion technology and design, and overall brand rankings.",
+    "brands": [
+      {
+        "name": "Chanel",
+        "year": 2020,
+        "metrics": {
+          "student_population": 1200,
+          "research_funding": 5000000,
+          "rankings": 1
+        }
+      },
+      {
+        "name": "Gucci",
+        "year": 2020,
+        "metrics": {
+          "student_population": 1150,
+          "research_funding": 4500000,
+          "rankings": 2
+        }
+      },
+      {
+        "name": "Louis Vuitton",
+        "year": 2020,
+        "metrics": {
+          "student_population": 1100,
+          "research_funding": 4800000,
+          "rankings": 3
+        }
+      },
+      {
+        "name": "Prada",
+        "year": 2021,
+        "metrics": {
+          "student_population": 950,
+          "research_funding": 4000000,
+          "rankings": 4
+        }
+      },
+      {
+        "name": "Dior",
+        "year": 2021,
+        "metrics": {
+          "student_population": 1050,
+          "research_funding": 4200000,
+          "rankings": 5
+        }
+      }
+    ]
+  },
+  "usage": {
+    "prompt_tokens": 120,
+    "completion_tokens": 343,
+    "total_tokens": 463
+  }
+}

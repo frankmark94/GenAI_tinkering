@@ -1,0 +1,65 @@
+{
+  "schema": {
+    "table_name": "users",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "name",
+        "type": "VARCHAR(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "email",
+        "type": "VARCHAR(100)",
+        "constraints": "UNIQUE"
+      },
+      {
+        "name": "manager_id",
+        "type": "INT",
+        "constraints": "FOREIGN KEY REFERENCES users(user_id)"
+      }
+    ],
+    "sql": "CREATE TABLE users (user_id INT PRIMARY KEY, name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE, manager_id INT, FOREIGN KEY (manager_id) REFERENCES users(user_id))"
+  },
+  "sample_data": [
+    {
+      "user_id": 1,
+      "name": "Alice",
+      "email": "alice@example.com",
+      "manager_id": null
+    },
+    {
+      "user_id": 2,
+      "name": "Bob",
+      "email": "bob@example.com",
+      "manager_id": 1
+    },
+    {
+      "user_id": 3,
+      "name": "Charlie",
+      "email": "charlie@example.com",
+      "manager_id": 1
+    },
+    {
+      "user_id": 4,
+      "name": "David",
+      "email": "david@example.com",
+      "manager_id": 2
+    },
+    {
+      "user_id": 5,
+      "name": "Eve",
+      "email": "eve@example.com",
+      "manager_id": 3
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 240,
+    "completion_tokens": 317,
+    "total_tokens": 557
+  }
+}

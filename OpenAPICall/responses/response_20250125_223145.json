@@ -1,0 +1,44 @@
+{
+  "highest_ranked_athletes": [
+    {
+      "name": "Michael Jordan",
+      "sport": "Basketball"
+    },
+    {
+      "name": "Serena Williams",
+      "sport": "Tennis"
+    },
+    {
+      "name": "Muhammad Ali",
+      "sport": "Boxing"
+    },
+    {
+      "name": "Pel\u00e9",
+      "sport": "Football"
+    },
+    {
+      "name": "Usain Bolt",
+      "sport": "Athletics"
+    },
+    {
+      "name": "Michael Phelps",
+      "sport": "Swimming"
+    },
+    {
+      "name": "Roger Federer",
+      "sport": "Tennis"
+    },
+    {
+      "name": "Lionel Messi",
+      "sport": "Football"
+    },
+    {
+      "name": "LeBron James",
+      "sport": "Basketball"
+    },
+    {
+      "name": "Tiger Woods",
+      "sport": "Golf"
+    }
+  ]
+}

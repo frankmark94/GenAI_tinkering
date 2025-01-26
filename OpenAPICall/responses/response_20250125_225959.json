@@ -1,0 +1,85 @@
+{
+  "schema": {
+    "table_name": "employees",
+    "columns": [
+      {
+        "name": "employee_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "first_name",
+        "type": "varchar(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "last_name",
+        "type": "varchar(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "position",
+        "type": "varchar(50)",
+        "constraints": ""
+      },
+      {
+        "name": "salary",
+        "type": "decimal(10, 2)",
+        "constraints": ""
+      },
+      {
+        "name": "manager_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES employees(employee_id)"
+      }
+    ],
+    "sql": "CREATE TABLE employees (employee_id int PRIMARY KEY, first_name varchar(50) NOT NULL, last_name varchar(50) NOT NULL, position varchar(50), salary decimal(10, 2), manager_id int, FOREIGN KEY (manager_id) REFERENCES employees(employee_id))"
+  },
+  "sample_data": [
+    {
+      "employee_id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "position": "Waiter",
+      "salary": 2500.0,
+      "manager_id": null
+    },
+    {
+      "employee_id": 2,
+      "first_name": "Jane",
+      "last_name": "Smith",
+      "position": "Chef",
+      "salary": 3500.0,
+      "manager_id": 1
+    },
+    {
+      "employee_id": 3,
+      "first_name": "Mike",
+      "last_name": "Johnson",
+      "position": "Bartender",
+      "salary": 2000.0,
+      "manager_id": 1
+    },
+    {
+      "employee_id": 4,
+      "first_name": "Sarah",
+      "last_name": "Wilson",
+      "position": "Server",
+      "salary": 2300.0,
+      "manager_id": 2
+    },
+    {
+      "employee_id": 5,
+      "first_name": "Chris",
+      "last_name": "Brown",
+      "position": "Manager",
+      "salary": 4000.0,
+      "manager_id": null
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 211,
+    "completion_tokens": 451,
+    "total_tokens": 662
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schema": {
+    "table_name": "Students",
+    "columns": [
+      {
+        "name": "student_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "name",
+        "type": "varchar(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "email",
+        "type": "varchar(100)",
+        "constraints": "UNIQUE"
+      },
+      {
+        "name": "dob",
+        "type": "date",
+        "constraints": ""
+      },
+      {
+        "name": "address",
+        "type": "text",
+        "constraints": ""
+      }
+    ],
+    "sql": "CREATE TABLE Students (student_id int PRIMARY KEY, name varchar(50) NOT NULL, email varchar(100) UNIQUE, dob date, address text)"
+  },
+  "sample_data": [
+    {
+      "student_id": 1,
+      "name": "Alice",
+      "email": "alice@example.com",
+      "dob": "2000-05-15",
+      "address": "123 Main St"
+    },
+    {
+      "student_id": 2,
+      "name": "Bob",
+      "email": "bob@example.com",
+      "dob": "1999-11-20",
+      "address": "456 Elm St"
+    },
+    {
+      "student_id": 3,
+      "name": "Charlie",
+      "email": "charlie@example.com",
+      "dob": "2001-02-10",
+      "address": "789 Oak St"
+    },
+    {
+      "student_id": 4,
+      "name": "David",
+      "email": "david@example.com",
+      "dob": "2002-08-30",
+      "address": "321 Pine St"
+    },
+    {
+      "student_id": 5,
+      "name": "Eve",
+      "email": "eve@example.com",
+      "dob": "1998-04-05",
+      "address": "654 Cedar St"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 244,
+    "completion_tokens": 376,
+    "total_tokens": 620
+  }
+}

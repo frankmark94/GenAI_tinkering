@@ -1,0 +1,40 @@
+{
+  "issues": [
+    {
+      "name": "Leaking faucets",
+      "cost": "$100 - $200"
+    },
+    {
+      "name": "Clogged drains",
+      "cost": "$75 - $200"
+    },
+    {
+      "name": "Faulty electrical wiring",
+      "cost": "$150 - $300"
+    },
+    {
+      "name": "Roof leaks",
+      "cost": "$300 - $800"
+    },
+    {
+      "name": "Mold growth",
+      "cost": "$500 - $3000"
+    },
+    {
+      "name": "Foundation cracks",
+      "cost": "$1000 - $3000"
+    },
+    {
+      "name": "HVAC system issues",
+      "cost": "$200 - $1000"
+    },
+    {
+      "name": "Termite infestation",
+      "cost": "$1000 - $5000"
+    },
+    {
+      "name": "Water damage",
+      "cost": "$500 - $3000"
+    }
+  ]
+}

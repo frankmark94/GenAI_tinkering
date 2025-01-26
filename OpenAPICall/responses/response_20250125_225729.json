@@ -1,0 +1,80 @@
+{
+  "schema": {
+    "table_name": "call_center_employee_hours",
+    "columns": [
+      {
+        "name": "employee_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "date",
+        "type": "date",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "start_time",
+        "type": "time",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "end_time",
+        "type": "time",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "total_hours",
+        "type": "decimal",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "supervisor_id",
+        "type": "int",
+        "constraints": "REFERENCES supervisor (supervisor_id)"
+      }
+    ],
+    "sql": "CREATE TABLE call_center_employee_hours (employee_id int PRIMARY KEY, date date NOT NULL, start_time time NOT NULL, end_time time NOT NULL, total_hours decimal NOT NULL, supervisor_id int, FOREIGN KEY (supervisor_id) REFERENCES supervisor(supervisor_id))"
+  },
+  "sample_data": [
+    {
+      "employee_id": 1,
+      "date": "2022-01-01",
+      "start_time": "09:00:00",
+      "end_time": "17:00:00",
+      "total_hours": 8,
+      "supervisor_id": 101
+    },
+    {
+      "employee_id": 2,
+      "date": "2022-01-01",
+      "start_time": "08:30:00",
+      "end_time": "16:30:00",
+      "total_hours": 8,
+      "supervisor_id": 101
+    },
+    {
+      "employee_id": 3,
+      "date": "2022-01-01",
+      "start_time": "10:00:00",
+      "end_time": "18:30:00",
+      "total_hours": 8.5,
+      "supervisor_id": 102
+    },
+    {
+      "employee_id": 1,
+      "date": "2022-01-02",
+      "start_time": "08:00:00",
+      "end_time": "16:00:00",
+      "total_hours": 8,
+      "supervisor_id": 101
+    },
+    {
+      "employee_id": 2,
+      "date": "2022-01-02",
+      "start_time": "09:00:00",
+      "end_time": "18:00:00",
+      "total_hours": 9,
+      "supervisor_id": 101
+    }
+  ]
+}

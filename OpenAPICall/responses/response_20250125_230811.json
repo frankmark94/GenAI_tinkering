@@ -1,0 +1,34 @@
+{
+  "renewableEnergySources": [
+    {
+      "source": "Solar Power",
+      "efficiencyRange": "15-22%",
+      "description": "Utilizes photovoltaic cells to convert sunlight directly into electricity."
+    },
+    {
+      "source": "Wind Power",
+      "efficiencyRange": "35-50%",
+      "description": "Converts the kinetic energy of wind into electrical power using wind turbines."
+    },
+    {
+      "source": "Hydropower",
+      "efficiencyRange": "80-90%",
+      "description": "Generates electricity by using water flow to drive turbines."
+    },
+    {
+      "source": "Geothermal",
+      "efficiencyRange": "10-20%",
+      "description": "Harnesses heat from the Earth to generate electricity."
+    },
+    {
+      "source": "Biomass",
+      "efficiencyRange": "20-40%",
+      "description": "Produces energy by burning organic materials such as wood, waste, and alcohol fuels."
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 91,
+    "completion_tokens": 220,
+    "total_tokens": 311
+  }
+}

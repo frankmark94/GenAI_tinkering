@@ -1,0 +1,55 @@
+{
+  "schema": {
+    "table_name": "users",
+    "columns": [
+      {
+        "name": "user_id",
+        "type": "INT",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "username",
+        "type": "VARCHAR",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "role_id",
+        "type": "INT",
+        "constraints": "FOREIGN KEY REFERENCES roles(role_id)"
+      }
+    ],
+    "sql": "CREATE TABLE users (user_id INT PRIMARY KEY, username VARCHAR NOT NULL, role_id INT, FOREIGN KEY (role_id) REFERENCES roles(role_id))"
+  },
+  "sample_data": [
+    {
+      "user_id": 1,
+      "username": "admin",
+      "role_id": 1
+    },
+    {
+      "user_id": 2,
+      "username": "driver1",
+      "role_id": 2
+    },
+    {
+      "user_id": 3,
+      "username": "driver2",
+      "role_id": 2
+    },
+    {
+      "user_id": 4,
+      "username": "passenger1",
+      "role_id": 3
+    },
+    {
+      "user_id": 5,
+      "username": "passenger2",
+      "role_id": 3
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 242,
+    "completion_tokens": 247,
+    "total_tokens": 489
+  }
+}

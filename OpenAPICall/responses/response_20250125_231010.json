@@ -1,0 +1,85 @@
+{
+  "schema": {
+    "table_name": "ServiceRequests",
+    "columns": [
+      {
+        "name": "request_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "patient_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES Patients(patient_id)"
+      },
+      {
+        "name": "service_type_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES ServiceTypes(service_type_id)"
+      },
+      {
+        "name": "status_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES RequestStatuses(status_id)"
+      },
+      {
+        "name": "created_at",
+        "type": "datetime",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "updated_at",
+        "type": "datetime",
+        "constraints": "NOT NULL"
+      }
+    ],
+    "sql": "CREATE TABLE ServiceRequests (request_id int PRIMARY KEY, patient_id int, service_type_id int, status_id int, created_at datetime NOT NULL, updated_at datetime NOT NULL, FOREIGN KEY (patient_id) REFERENCES Patients(patient_id), FOREIGN KEY (service_type_id) REFERENCES ServiceTypes(service_type_id), FOREIGN KEY (status_id) REFERENCES RequestStatuses(status_id))"
+  },
+  "sample_data": [
+    {
+      "request_id": 1,
+      "patient_id": 1,
+      "service_type_id": 1,
+      "status_id": 1,
+      "created_at": "2022-01-01 08:00:00",
+      "updated_at": "2022-01-01 08:30:00"
+    },
+    {
+      "request_id": 2,
+      "patient_id": 2,
+      "service_type_id": 2,
+      "status_id": 1,
+      "created_at": "2022-01-02 09:00:00",
+      "updated_at": "2022-01-02 09:30:00"
+    },
+    {
+      "request_id": 3,
+      "patient_id": 1,
+      "service_type_id": 3,
+      "status_id": 2,
+      "created_at": "2022-01-03 10:00:00",
+      "updated_at": "2022-01-03 10:30:00"
+    },
+    {
+      "request_id": 4,
+      "patient_id": 3,
+      "service_type_id": 1,
+      "status_id": 3,
+      "created_at": "2022-01-04 11:00:00",
+      "updated_at": "2022-01-04 11:30:00"
+    },
+    {
+      "request_id": 5,
+      "patient_id": 2,
+      "service_type_id": 2,
+      "status_id": 2,
+      "created_at": "2022-01-05 12:00:00",
+      "updated_at": "2022-01-05 12:30:00"
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 241,
+    "completion_tokens": 589,
+    "total_tokens": 830
+  }
+}

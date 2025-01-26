@@ -1,0 +1,54 @@
+{
+  "top_models": [
+    {
+      "name": "Tesla Model S",
+      "company": "Tesla",
+      "cost_per_token": "$1.50"
+    },
+    {
+      "name": "Toyota Camry",
+      "company": "Toyota",
+      "cost_per_token": "$1.20"
+    },
+    {
+      "name": "Honda Civic",
+      "company": "Honda",
+      "cost_per_token": "$1.10"
+    },
+    {
+      "name": "Ford F-150",
+      "company": "Ford",
+      "cost_per_token": "$1.30"
+    },
+    {
+      "name": "Chevrolet Silverado",
+      "company": "Chevrolet",
+      "cost_per_token": "$1.25"
+    },
+    {
+      "name": "Nissan Altima",
+      "company": "Nissan",
+      "cost_per_token": "$1.15"
+    },
+    {
+      "name": "BMW 3 Series",
+      "company": "BMW",
+      "cost_per_token": "$1.70"
+    },
+    {
+      "name": "Mercedes-Benz C-Class",
+      "company": "Mercedes-Benz",
+      "cost_per_token": "$1.80"
+    },
+    {
+      "name": "Audi A4",
+      "company": "Audi",
+      "cost_per_token": "$1.75"
+    },
+    {
+      "name": "Lexus RX",
+      "company": "Lexus",
+      "cost_per_token": "$1.65"
+    }
+  ]
+}

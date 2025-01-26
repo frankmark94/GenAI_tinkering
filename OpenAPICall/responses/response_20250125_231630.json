@@ -1,0 +1,75 @@
+{
+  "schema": {
+    "table_name": "students",
+    "columns": [
+      {
+        "name": "student_id",
+        "type": "int",
+        "constraints": "PRIMARY KEY"
+      },
+      {
+        "name": "student_name",
+        "type": "varchar(50)",
+        "constraints": "NOT NULL"
+      },
+      {
+        "name": "age",
+        "type": "int",
+        "constraints": ""
+      },
+      {
+        "name": "grade_level",
+        "type": "int",
+        "constraints": ""
+      },
+      {
+        "name": "classroom_id",
+        "type": "int",
+        "constraints": "FOREIGN KEY REFERENCES classrooms(classroom_id)"
+      }
+    ],
+    "sql": "CREATE TABLE students (student_id int PRIMARY KEY, student_name varchar(50) NOT NULL, age int, grade_level int, classroom_id int, FOREIGN KEY (classroom_id) REFERENCES classrooms(classroom_id))"
+  },
+  "sample_data": [
+    {
+      "student_id": 1,
+      "student_name": "Alice",
+      "age": 15,
+      "grade_level": 10,
+      "classroom_id": 101
+    },
+    {
+      "student_id": 2,
+      "student_name": "Bob",
+      "age": 14,
+      "grade_level": 9,
+      "classroom_id": 102
+    },
+    {
+      "student_id": 3,
+      "student_name": "Charlie",
+      "age": 16,
+      "grade_level": 11,
+      "classroom_id": 101
+    },
+    {
+      "student_id": 4,
+      "student_name": "David",
+      "age": 15,
+      "grade_level": 10,
+      "classroom_id": 103
+    },
+    {
+      "student_id": 5,
+      "student_name": "Eve",
+      "age": 14,
+      "grade_level": 9,
+      "classroom_id": 102
+    }
+  ],
+  "usage": {
+    "prompt_tokens": 241,
+    "completion_tokens": 370,
+    "total_tokens": 611
+  }
+}

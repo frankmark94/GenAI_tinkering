@@ -7,6 +7,7 @@ from openai import OpenAI
 from database import Database
 import json
 
+
 # Load environment variables
 load_dotenv()
 
@@ -415,5 +416,8 @@ def calculate_cost(model, prompt_tokens, completion_tokens):
     completion_cost = (completion_tokens / 1000) * pricing[model]['completion']
     return prompt_cost + completion_cost
 
+# Add this near the bottom of app.py, just before the if __name__ == '__main__': line
+port = int(os.environ.get('PORT', 5000))
+
 if __name__ == '__main__':
-    app.run(debug=True) 
+    app.run(host='0.0.0.0', port=port) 

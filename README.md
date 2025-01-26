@@ -72,6 +72,7 @@ A personal project exploring various capabilities of OpenAI's APIs through a web
 
 ## Setup
 
+### Local Development
 1. Clone the repository
 2. Create a `.env` file with your OpenAI API key:
    ```
@@ -84,6 +85,33 @@ A personal project exploring various capabilities of OpenAI's APIs through a web
 4. Run the application:
    ```bash
    python app.py
+   ```
+
+### Heroku Deployment
+1. Install the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)
+2. Login to Heroku:
+   ```bash
+   heroku login
+   ```
+3. Create a new Heroku app:
+   ```bash
+   heroku create your-app-name
+   ```
+4. Set your OpenAI API key in Heroku:
+   ```bash
+   heroku config:set OPENAI_API_KEY=your_api_key_here
+   ```
+5. Deploy to Heroku:
+   ```bash
+   git push heroku main
+   ```
+6. Ensure at least one web dyno is running:
+   ```bash
+   heroku ps:scale web=1
+   ```
+7. Open your application:
+   ```bash
+   heroku open
    ```
 
 ## Project Structure

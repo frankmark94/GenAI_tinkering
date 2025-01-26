@@ -1,0 +1,2356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Query Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .email-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .console-section {
+            margin-top: 30px;
+            border-top: 2px solid #ddd;
+            padding-top: 20px;
+        }
+
+        .console-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .console-container {
+            background-color: #1e1e1e;
+            color: #fff;
+            padding: 15px;
+            border-radius: 4px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .console-entry {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .console-timestamp {
+            color: #888;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+
+        .console-prompt {
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+
+        .console-response {
+            color: #fff;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        .clear-console {
+            background-color: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .clear-console:hover {
+            background-color: #c82333;
+        }
+
+        .download-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .download-button:hover {
+            background-color: #218838;
+        }
+
+        .console-timestamp, .console-prompt, .console-response {
+            padding-right: 100px;
+        }
+
+        .main-content {
+            display: flex;
+            gap: 30px;
+        }
+
+        .query-section {
+            flex: 1;
+        }
+
+        .weather-widget {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .weather-result {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .weather-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .go-button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .go-button:hover {
+            background-color: #218838;
+        }
+
+        .weather-error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .database-widget {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .table-preview {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        .table-preview table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .table-preview th {
+            background-color: #f8f9fa;
+            padding: 8px;
+            border: 1px solid #dee2e6;
+            text-align: left;
+        }
+
+        .table-preview td {
+            padding: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .schema-info {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .tab-button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #e9ecef;
+        }
+
+        .tab-button.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .tabs-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .tab-nav-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            background-color: #e9ecef;
+            color: #495057;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .tab-nav-button:hover {
+            background-color: #dee2e6;
+        }
+
+        .tab-nav-button.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content > h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .widgets-container {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .widget-card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 500px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Adjust existing widget styles */
+        .weather-widget, .database-widget {
+            width: auto;
+            margin-top: 0;
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .sub-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .sub-tab-button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            background-color: #e9ecef;
+            color: #495057;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .sub-tab-button:hover {
+            background-color: #dee2e6;
+        }
+
+        .sub-tab-button.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .sub-tab-content {
+            display: none;
+        }
+
+        .sub-tab-content.active {
+            display: block;
+        }
+
+        .history-container {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .history-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .history-timestamp {
+            color: #6c757d;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .history-content {
+            margin-top: 10px;
+        }
+
+        .history-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        .visualization-preview {
+            margin-top: 15px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        .token-usage-container {
+            padding: 20px;
+        }
+
+        .token-summary {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .summary-card {
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .summary-card h3 {
+            margin: 0 0 10px 0;
+            color: #666;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .token-table-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .token-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .token-table th,
+        .token-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .token-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .token-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .refresh-button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+
+        .refresh-button:hover {
+            background-color: #0056b3;
+        }
+
+        .refresh-button i {
+            font-size: 14px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+            height: 400px;
+        }
+
+        .query-input-container {
+            position: relative;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .ai-suggest-button {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            height: 40px;
+            white-space: nowrap;
+        }
+
+        .ai-suggest-button:hover {
+            background-color: #5b4bc4;
+            transform: translateY(-2px);
+        }
+
+        .ai-suggest-button i {
+            font-size: 16px;
+        }
+
+        .ai-suggest-button:active {
+            transform: translateY(0px);
+        }
+
+        .analytics-preview {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .analytics-controls {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            flex-wrap: wrap;
+        }
+
+        .chart-type-selector, .metric-selectors {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .metric-selectors {
+            flex-grow: 1;
+            justify-content: flex-start;
+        }
+
+        .metric-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .analytics-controls select {
+            padding: 6px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            background: white;
+            min-width: 150px;
+        }
+
+        .analytics-container {
+            height: 400px;
+            position: relative;
+            margin-top: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tooltip-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+            color: #007bff;
+            cursor: help;
+        }
+
+        .tooltip-wrapper .tooltip-content {
+            visibility: hidden;
+            width: 300px;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            border-radius: 6px;
+            padding: 10px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            white-space: pre-wrap;
+        }
+
+        .tooltip-wrapper:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .tooltip-wrapper .tooltip-content::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .info-icon {
+            font-size: 14px;
+            vertical-align: middle;
+        }
+
+        .flashcards-container {
+            margin-top: 20px;
+        }
+
+        .flashcards-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .flashcards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .flashcard {
+            perspective: 1000px;
+            height: 200px;
+        }
+
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: white;
+        }
+
+        .flashcard-back {
+            transform: rotateY(180deg);
+            background: #f8f9fa;
+        }
+
+        .flashcard-question {
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .flashcard-answer {
+            font-size: 14px;
+            color: #666;
+            overflow-y: auto;
+            max-height: 100%;
+            padding: 10px;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Query Interface</h1>
+        
+        <div class="tabs-container">
+            <div class="tabs-nav">
+                <button class="tab-nav-button active" onclick="switchTab('query')">
+                    <i class="fas fa-terminal"></i> Query Console
+                </button>
+                <button class="tab-nav-button" onclick="switchTab('tools')">
+                    <i class="fas fa-tools"></i> AI Tools
+                </button>
+                <button class="tab-nav-button" onclick="switchTab('database')">
+                    <i class="fas fa-database"></i> Database Builder
+                </button>
+                <button class="tab-nav-button" onclick="switchTab('tokens')">
+                    <i class="fas fa-coins"></i> Token Usage
+                </button>
+                <button class="tab-nav-button" onclick="switchTab('flashcards')">
+                    <i class="fas fa-graduation-cap"></i> AWS Flashcards
+                    <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                        <div class="tooltip-content">
+                            Generates AWS Solutions Architect certification flashcards using GPT-4.
+                            Each card contains a test-style question and detailed answer.
+                            Cards are saved to history for future review.
+                        </div>
+                    </i>
+                </button>
+            </div>
+
+            <!-- Query Console Tab -->
+            <div id="queryTab" class="tab-content active">
+                <h2>AI Query Console</h2>
+                <div class="query-section">
+                    <form id="queryForm">
+                        <div class="form-group">
+                            <label for="model" class="tooltip-wrapper">
+                                Choose Model:
+                                <i class="fas fa-info-circle info-icon"></i>
+                            </label>
+                            <select id="model" name="model" class="model-select">
+                                <option value="gpt-4-0125-preview" selected>GPT-4 Turbo (Latest)</option>
+                                <option value="gpt-4">GPT-4 (Base)</option>
+                                <option value="gpt-4-1106-preview">GPT-4 Turbo (Previous)</option>
+                                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                                <option value="gpt-3.5-turbo-16k">GPT-3.5 Turbo 16K</option>
+                            </select>
+                        </div>
+                        <div class="email-group">
+                            <div style="flex-grow: 1;">
+                                <label for="email">Email Address:</label>
+                                <input type="email" id="email" name="email">
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="sendEmail" name="sendEmail">
+                                <label for="sendEmail">Send Email</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="prompt">Your Query:</label>
+                            <div class="query-input-container">
+                                <textarea id="prompt" name="prompt" required 
+                                    placeholder="Enter your query here. The response will be formatted as JSON."></textarea>
+                                <button type="button" id="aiSuggestButton" class="ai-suggest-button">
+                                    <span><i class="fas fa-robot"></i> Let AI do it</span>
+                                    <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                                        <div class="tooltip-content">
+                                            Generates a random query by combining:
+                                            - Subjects (companies, technologies, etc.)
+                                            - Attributes (revenue, ratings, etc.)
+                                            - Timeframes (last decade, all time, etc.)
+                                            
+                                            Example prompt format:
+                                            "Generate a detailed comparison of [subject] [timeframe], including [attributes].
+                                            Return the data in a structured JSON format."
+                                        </div>
+                                    </i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">
+                                Submit Query
+                                <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                                    <div class="tooltip-content">
+                                        This sends your query to OpenAI using the selected model.
+                                        
+                                        System Prompt:
+                                        "You are a JSON-only response API. Always respond with valid JSON only."
+                                        
+                                        Your query will be formatted as:
+                                        "Return the following as properly formatted JSON: [your query]"
+                                    </div>
+                                </i>
+                            </button>
+                        </div>
+                    </form>
+                    <div class="loading" id="loading">
+                        Processing your request...
+                    </div>
+                    <div id="response"></div>
+                    <div class="sub-tabs">
+                        <button class="sub-tab-button active" onclick="switchSubTab('query', 'console')">Console</button>
+                        <button class="sub-tab-button" onclick="switchSubTab('query', 'history')">History</button>
+                    </div>
+                    <div id="queryConsoleTab" class="sub-tab-content active">
+                        <div class="console-section">
+                            <div class="console-header">
+                                <h2>Query Console</h2>
+                                <button class="clear-console" id="clearConsole">Clear Console</button>
+                            </div>
+                            <div class="console-container" id="console">
+                                <!-- Console entries will be added here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="queryHistoryTab" class="sub-tab-content">
+                        <div class="history-container" id="queryHistory">
+                            <!-- Query history will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tools Tab -->
+            <div id="toolsTab" class="tab-content">
+                <h2>AI Tools</h2>
+                <div class="widgets-container">
+                    <div class="widget-card">
+                        <div class="weather-widget">
+                            <h2>Weather Check</h2>
+                            <div class="sub-tabs">
+                                <button class="sub-tab-button active" onclick="switchSubTab('weather', 'form')">Check Weather</button>
+                                <button class="sub-tab-button" onclick="switchSubTab('weather', 'history')">History</button>
+                            </div>
+                            <div id="weatherFormTab" class="sub-tab-content active">
+                                <form id="weatherForm" class="weather-form">
+                                    <div class="form-group">
+                                        <label for="city">City:</label>
+                                        <input type="text" id="city" name="city" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state">State:</label>
+                                        <select id="state" name="state" required>
+                                            <option value="">Select a state</option>
+                                            <!-- States will be populated by JavaScript -->
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="go-button">
+                                        Get Weather
+                                        <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                                            <div class="tooltip-content">
+                                                Makes two API calls:
+                                                
+                                                1. Weather Data (GPT-4):
+                                                Prompt: "Return a detailed current weather description for [city], [state] 
+                                                in JSON format. Include temperature, conditions, humidity, wind speed, 
+                                                and brief forecast."
+                                                
+                                                2. Weather Image (DALL-E 3):
+                                                Prompt: "A beautiful, realistic photograph showing the weather in [city] 
+                                                with [conditions] during [time of day]. Wide angle city view."
+                                            </div>
+                                        </i>
+                                    </button>
+                                    <div class="weather-error" id="weatherError"></div>
+                                </form>
+                                <div class="weather-result" id="weatherResult">
+                                    <!-- Weather results will be displayed here -->
+                                </div>
+                            </div>
+                            <div id="weatherHistoryTab" class="sub-tab-content">
+                                <div class="history-container" id="weatherHistory">
+                                    <!-- Weather history will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add more tool widgets here -->
+                </div>
+            </div>
+
+            <!-- Database Builder Tab -->
+            <div id="databaseTab" class="tab-content">
+                <h2>Database Schema Generator</h2>
+                <div class="widget-card">
+                    <div class="database-widget">
+                        <h2>Database Builder</h2>
+                        <div class="sub-tabs">
+                            <button class="sub-tab-button active" onclick="switchSubTab('db', 'builder')">Builder</button>
+                            <button class="sub-tab-button" onclick="switchSubTab('db', 'history')">History</button>
+                        </div>
+                        <div id="dbBuilderTab" class="sub-tab-content active">
+                            <form id="dbForm" class="weather-form">
+                                <div class="form-group">
+                                    <label for="tableDescription">Describe your table:</label>
+                                    <div class="query-input-container">
+                                        <textarea 
+                                            id="tableDescription" 
+                                            name="tableDescription" 
+                                            required 
+                                            placeholder="Example: Build me a table for tracking employee vacation requests"
+                                            style="height: 100px;"
+                                        ></textarea>
+                                        <button type="button" id="dbAiSuggestButton" class="ai-suggest-button">
+                                            <span><i class="fas fa-robot"></i> Let AI do it</span>
+                                            <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                                                <div class="tooltip-content">
+                                                    Generates a random database schema prompt by combining:
+                                                    - Business domains (e-commerce, healthcare, etc.)
+                                                    - Entity types (user activity, transactions, etc.)
+                                                    - Requirements (audit trails, permissions, etc.)
+                                                    
+                                                    Example prompt:
+                                                    "Design a normalized database schema for a [domain] system 
+                                                    to handle [entity_type] with [requirements]."
+                                                </div>
+                                            </i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <button type="submit" class="go-button">
+                                    Generate Schema
+                                    <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                                        <div class="tooltip-content">
+                                            Sends schema request to GPT-4 with prompt:
+                                            "Create a normalized SQL database schema with:
+                                            - Table definitions with appropriate columns and types
+                                            - Primary and foreign key constraints
+                                            - Sample data that demonstrates relationships
+                                            
+                                            Return the schema and sample data in JSON format with:
+                                            {
+                                              'schema': 'CREATE TABLE statements',
+                                              'sample_data': [array of sample records]
+                                            }"
+                                        </div>
+                                    </i>
+                                </button>
+                                <div class="weather-error" id="dbError"></div>
+                            </form>
+                            <div id="dbResult">
+                                <div class="tab-buttons">
+                                    <button class="tab-button tooltip-wrapper active" onclick="showTab('schema')">
+                                        Schema
+                                    </button>
+                                    <button class="tab-button tooltip-wrapper" onclick="showTab('data')">
+                                        Sample Data
+                                    </button>
+                                    <button class="tab-button" onclick="showTab('visualization')">ER Diagram</button>
+                                    <button class="tab-button" onclick="showTab('analytics')">Data Analytics</button>
+                                </div>
+                                <div id="schemaTab" class="schema-info"></div>
+                                <div id="dataTab" class="table-preview" style="display: none;"></div>
+                                <div id="visualizationTab" class="visualization-preview" style="display: none;">
+                                    <button id="generateVisualization" class="go-button">
+                                        Generate Visualization
+                                    </button>
+                                    <div id="mermaidDiagram" class="mermaid-container"></div>
+                                </div>
+                                <div id="analyticsTab" class="analytics-preview" style="display: none;">
+                                    <div class="analytics-controls">
+                                        <div class="chart-type-selector tooltip-wrapper">
+                                            <label for="chartType">Chart Type:</label>
+                                            <select id="chartType" onchange="updateDataVisualization()">
+                                                <option value="bar">Bar Chart</option>
+                                                <option value="line">Line Chart</option>
+                                                <option value="pie">Pie Chart</option>
+                                                <option value="scatter">Scatter Plot</option>
+                                                <option value="radar">Radar Chart</option>
+                                            </select>
+                                        </div>
+                                        <div class="metric-selectors tooltip-wrapper">
+                                            <i class="fas fa-info-circle info-icon"></i>
+                                            <div class="tooltip-content">
+                                                This visualization uses the sample data generated by GPT-4.
+                                                The data is processed to show relationships between different fields.
+                                                Select metrics to analyze patterns in the AI-generated dataset.
+                                            </div>
+                                            <div class="metric-group">
+                                                <label for="xAxis">X-Axis:</label>
+                                                <select id="xAxis" onchange="updateDataVisualization()"></select>
+                                            </div>
+                                            <div class="metric-group">
+                                                <label for="yAxis">Y-Axis/Metric:</label>
+                                                <select id="yAxis" onchange="updateDataVisualization()"></select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="analytics-container">
+                                        <canvas id="analyticsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="dbHistoryTab" class="sub-tab-content">
+                            <div class="history-container" id="schemaHistory">
+                                <!-- Schema history will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Token Usage Tab -->
+            <div id="tokensTab" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Token Usage Analytics</h2>
+                    <button onclick="loadTokenUsage()" class="refresh-button">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+                <div class="token-usage-container">
+                    <div class="token-summary">
+                        <div class="summary-card total-tokens tooltip-wrapper">
+                            <h3>Total Tokens Used</h3>
+                            <div class="summary-value" id="totalTokens">0</div>
+                        </div>
+                        <div class="summary-card total-cost tooltip-wrapper">
+                            <h3>Total Cost</h3>
+                            <div class="summary-value" id="totalCost">$0.00</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Add the chart container -->
+                    <div class="chart-container tooltip-wrapper">
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    
+                    <div class="token-table-container">
+                        <table class="token-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Request Type</th>
+                                    <th>Model</th>
+                                    <th>Prompt Tokens</th>
+                                    <th>Completion Tokens</th>
+                                    <th>Total Tokens</th>
+                                    <th>Cost</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tokenUsageBody">
+                                <!-- Token usage entries will be added here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Flashcards Tab -->
+            <div id="flashcardsTab" class="tab-content">
+                <h2>AWS Certification Flashcards</h2>
+                
+                <div class="flashcards-container">
+                    <div class="flashcards-controls">
+                        <button id="generateFlashcards" class="go-button">
+                            Generate 5 Flashcards
+                            <i class="fas fa-info-circle info-icon tooltip-wrapper">
+                                <div class="tooltip-content">
+                                    Calls GPT-4 to generate 5 unique AWS SA exam-style questions.
+                                    Each question tests different AWS services and concepts.
+                                    System prompt ensures questions match official exam style.
+                                </div>
+                            </i>
+                        </button>
+                    </div>
+
+                    <div class="sub-tabs">
+                        <button class="sub-tab-button active" onclick="switchSubTab('flashcards', 'cards')">Cards</button>
+                        <button class="sub-tab-button" onclick="switchSubTab('flashcards', 'history')">History</button>
+                    </div>
+
+                    <div id="flashcardsCardsTab" class="sub-tab-content active">
+                        <div id="flashcardsGrid" class="flashcards-grid">
+                            <!-- Flashcards will be added here -->
+                        </div>
+                    </div>
+
+                    <div id="flashcardsHistoryTab" class="sub-tab-content">
+                        <div class="history-container" id="flashcardsHistory">
+                            <!-- Flashcards history will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const prompt = document.getElementById('prompt').value;
+            const sendEmail = document.getElementById('sendEmail').checked;
+            const loading = document.getElementById('loading');
+            const response = document.getElementById('response');
+            
+            loading.style.display = 'block';
+            response.style.display = 'none';
+            
+            try {
+                const res = await fetch('/submit-query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ 
+                        email: sendEmail ? email : null, 
+                        prompt,
+                        sendEmail
+                    })
+                });
+                
+                const data = await res.json();
+                
+                // Add to console
+                addConsoleEntry(prompt, data);
+                
+                response.textContent = data.message;
+                response.className = res.ok ? 'success' : 'error';
+                response.style.display = 'block';
+                refreshTokenUsage();
+            } catch (error) {
+                response.textContent = 'An error occurred while processing your request.';
+                response.className = 'error';
+                response.style.display = 'block';
+            } finally {
+                loading.style.display = 'none';
+            }
+        });
+
+        function addConsoleEntry(prompt, data) {
+            const console = document.getElementById('console');
+            const entry = document.createElement('div');
+            entry.className = 'console-entry';
+            
+            const timestamp = new Date().toLocaleString();
+            const formattedResponse = typeof data.result === 'object' 
+                ? JSON.stringify(data.result, null, 2)
+                : data.result || data.message;
+            
+            // Create a unique ID for this entry
+            const entryId = 'entry-' + Date.now();
+            
+            entry.innerHTML = `
+                <div class="console-timestamp">${timestamp}</div>
+                <div class="console-prompt">Prompt: ${prompt}</div>
+                <div class="console-response">${formattedResponse}</div>
+                <button class="download-button" onclick="downloadJSON('${entryId}')">
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 12l-4-4h2.5V3h3v5H12L8 12z"/>
+                        <path d="M14 13v1H2v-1h12z"/>
+                    </svg>
+                    Download JSON
+                </button>
+            `;
+            
+            // Store the data for downloading later
+            entry.dataset.jsonData = JSON.stringify(data.result || data);
+            entry.id = entryId;
+            
+            console.insertBefore(entry, console.firstChild);
+        }
+
+        // Add this new function for downloading JSON
+        function downloadJSON(entryId) {
+            const entry = document.getElementById(entryId);
+            const jsonData = entry.dataset.jsonData;
+            const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+            const filename = `query-response-${timestamp}.json`;
+            
+            // Create blob and download link
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            
+            // Trigger download
+            document.body.appendChild(a);
+            a.click();
+            
+            // Cleanup
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+        }
+
+        document.getElementById('clearConsole').addEventListener('click', () => {
+            document.getElementById('console').innerHTML = '';
+        });
+
+        // Update email input required status based on checkbox
+        document.getElementById('sendEmail').addEventListener('change', (e) => {
+            const emailInput = document.getElementById('email');
+            emailInput.required = e.target.checked;
+        });
+
+        // US States data
+        const states = {
+            'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
+            'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut', 'DE': 'Delaware',
+            'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii', 'ID': 'Idaho',
+            'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa', 'KS': 'Kansas',
+            'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine', 'MD': 'Maryland',
+            'MA': 'Massachusetts', 'MI': 'Michigan', 'MN': 'Minnesota', 'MS': 'Mississippi',
+            'MO': 'Missouri', 'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
+            'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico', 'NY': 'New York',
+            'NC': 'North Carolina', 'ND': 'North Dakota', 'OH': 'Ohio', 'OK': 'Oklahoma',
+            'OR': 'Oregon', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina',
+            'SD': 'South Dakota', 'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah',
+            'VT': 'Vermont', 'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
+            'WI': 'Wisconsin', 'WY': 'Wyoming'
+        };
+
+        // Populate states dropdown
+        const stateSelect = document.getElementById('state');
+        Object.entries(states).forEach(([code, name]) => {
+            const option = document.createElement('option');
+            option.value = code;
+            option.textContent = name;
+            stateSelect.appendChild(option);
+        });
+
+        // Handle weather form submission
+        document.getElementById('weatherForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const city = document.getElementById('city').value;
+            const state = document.getElementById('state').value;
+            const weatherResult = document.getElementById('weatherResult');
+            const weatherError = document.getElementById('weatherError');
+            
+            weatherResult.innerHTML = '<p>Loading weather data...</p>';
+            weatherError.style.display = 'none';
+            
+            try {
+                const res = await fetch('/get-weather', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ city, state })
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    weatherResult.innerHTML = `
+                        <h3>${city}, ${states[state]}</h3>
+                        <div class="weather-data">
+                            ${data.weather_description}
+                        </div>
+                        <img src="${data.image_url}" alt="Weather visualization" class="weather-image">
+                    `;
+                    refreshTokenUsage();
+                } else {
+                    weatherError.textContent = data.message;
+                    weatherError.style.display = 'block';
+                    weatherResult.innerHTML = '';
+                }
+            } catch (error) {
+                weatherError.textContent = 'Failed to fetch weather data';
+                weatherError.style.display = 'block';
+                weatherResult.innerHTML = '';
+            }
+        });
+
+        // Handle database form submission
+        document.getElementById('dbForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const description = document.getElementById('tableDescription').value;
+            const dbError = document.getElementById('dbError');
+            const schemaTab = document.getElementById('schemaTab');
+            const dataTab = document.getElementById('dataTab');
+            const mermaidDiagram = document.getElementById('mermaidDiagram');
+            
+            dbError.style.display = 'none';
+            schemaTab.innerHTML = 'Generating schema...';
+            dataTab.innerHTML = '';
+            mermaidDiagram.innerHTML = '';
+            
+            try {
+                const res = await fetch('/generate-schema', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ description })
+                });
+                
+                const data = await res.json();
+                
+                if (res.ok) {
+                    schemaTab.innerHTML = `<pre>${data.schema}</pre>`;
+                    dataTab.innerHTML = generateTableHTML(data.sample_data);
+                    // Store sample data globally for analytics
+                    window.currentSampleData = data.sample_data;
+                    refreshTokenUsage();
+                } else {
+                    dbError.textContent = data.message;
+                    dbError.style.display = 'block';
+                    schemaTab.innerHTML = '';
+                    dataTab.innerHTML = '';
+                }
+            } catch (error) {
+                dbError.textContent = 'Failed to generate database schema';
+                dbError.style.display = 'block';
+                schemaTab.innerHTML = '';
+                dataTab.innerHTML = '';
+            }
+        });
+
+        function generateTableHTML(data) {
+            if (!data || !data.length) return '<p>No sample data available</p>';
+            
+            const headers = Object.keys(data[0]);
+            
+            return `
+                <table>
+                    <thead>
+                        <tr>
+                            ${headers.map(h => `<th>${h}</th>`).join('')}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(row => `
+                            <tr>
+                                ${headers.map(h => `<td>${row[h]}</td>`).join('')}
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function showTab(tabName) {
+            const schemaTab = document.getElementById('schemaTab');
+            const dataTab = document.getElementById('dataTab');
+            const visualizationTab = document.getElementById('visualizationTab');
+            const analyticsTab = document.getElementById('analyticsTab');
+            const buttons = document.querySelectorAll('.tab-button');
+            
+            // Hide all tabs
+            schemaTab.style.display = 'none';
+            dataTab.style.display = 'none';
+            visualizationTab.style.display = 'none';
+            analyticsTab.style.display = 'none';
+            
+            // Show selected tab
+            if (tabName === 'schema') {
+                schemaTab.style.display = 'block';
+            } else if (tabName === 'data') {
+                dataTab.style.display = 'block';
+            } else if (tabName === 'visualization') {
+                visualizationTab.style.display = 'block';
+            } else if (tabName === 'analytics') {
+                analyticsTab.style.display = 'block';
+                initializeAnalytics();
+            }
+            
+            // Update button states
+            buttons.forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase().includes(tabName));
+            });
+        }
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Deactivate all nav buttons
+            document.querySelectorAll('.tab-nav-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            
+            // Activate selected nav button
+            event.currentTarget.classList.add('active');
+            
+            // Load token usage data when switching to tokens tab
+            if (tabName === 'tokens') {
+                loadTokenUsage();
+            }
+        }
+
+        function switchSubTab(widget, tabName) {
+            // Get all sub-tabs and contents for this widget
+            const parentElement = event.target.closest('.widget-card, .query-section, .weather-widget, .database-widget');
+            const subTabs = parentElement.querySelectorAll('.sub-tab-button');
+            const subContents = parentElement.querySelectorAll('.sub-tab-content');
+            
+            // Deactivate all tabs and hide contents
+            subTabs.forEach(tab => tab.classList.remove('active'));
+            subContents.forEach(content => content.classList.remove('active'));
+            
+            // Activate selected tab and show content
+            event.target.classList.add('active');
+            document.getElementById(`${widget}${tabName.charAt(0).toUpperCase() + tabName.slice(1)}Tab`).classList.add('active');
+            
+            // Load history if switching to history tab
+            if (tabName === 'history') {
+                loadHistory(widget);
+            }
+        }
+
+        async function loadHistory(widget) {
+            try {
+                let history;
+                let container;
+                
+                switch(widget) {
+                    case 'query':
+                        history = await fetch('/history/queries').then(res => res.json());
+                        container = document.getElementById('queryHistory');
+                        container.innerHTML = history.map(item => `
+                            <div class="history-item">
+                                <div class="history-timestamp">${new Date(item.timestamp).toLocaleString()}</div>
+                                <div><strong>Model:</strong> ${item.model}</div>
+                                <div><strong>Prompt:</strong> ${item.prompt}</div>
+                                <div class="history-content">
+                                    <pre>${JSON.stringify(item.response, null, 2)}</pre>
+                                </div>
+                            </div>
+                        `).join('');
+                        break;
+                        
+                    case 'weather':
+                        history = await fetch('/history/weather').then(res => res.json());
+                        container = document.getElementById('weatherHistory');
+                        container.innerHTML = history.map(item => `
+                            <div class="history-item">
+                                <div class="history-timestamp">${new Date(item.timestamp).toLocaleString()}</div>
+                                <div><strong>Location:</strong> ${item.city}, ${item.state}</div>
+                                <div class="history-content">
+                                    <pre>${JSON.stringify(item.weather_data, null, 2)}</pre>
+                                    ${item.image_url ? `<img src="${item.image_url}" alt="Weather" class="history-image">` : ''}
+                                </div>
+                            </div>
+                        `).join('');
+                        break;
+                        
+                    case 'db':
+                        history = await fetch('/history/schemas').then(res => res.json());
+                        container = document.getElementById('schemaHistory');
+                        container.innerHTML = history.map(item => `
+                            <div class="history-item">
+                                <div class="history-timestamp">${new Date(item.timestamp).toLocaleString()}</div>
+                                <div><strong>Description:</strong> ${item.description}</div>
+                                <div class="history-content">
+                                    <pre>${JSON.stringify(item.schema_data, null, 2)}</pre>
+                                </div>
+                            </div>
+                        `).join('');
+                        break;
+                }
+            } catch (error) {
+                console.error('Failed to load history:', error);
+            }
+        }
+
+        // Initialize mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            securityLevel: 'loose'
+        });
+
+        // Add visualization generation handler
+        document.getElementById('generateVisualization').addEventListener('click', function() {
+            const schemaTab = document.getElementById('schemaTab');
+            const mermaidContainer = document.getElementById('mermaidDiagram');
+            
+            // Get the current schema data
+            const schemaText = schemaTab.textContent;
+            if (!schemaText) {
+                alert('Please generate a schema first!');
+                return;
+            }
+
+            // Generate Mermaid diagram
+            generateMermaidDiagram(schemaText);
+        });
+
+        function generateMermaidDiagram(schemaText) {
+            try {
+                // Parse the schema text to extract table and column information
+                const lines = schemaText.split('\n');
+                let tableName = '';
+                let columns = [];
+                
+                // Extract table name and columns
+                lines.forEach(line => {
+                    if (line.startsWith('Table:')) {
+                        tableName = line.replace('Table:', '').trim();
+                    } else if (line.startsWith('-')) {
+                        const columnMatch = line.match(/- (\w+) \(([^)]+)\) (.*)/);
+                        if (columnMatch) {
+                            columns.push({
+                                name: columnMatch[1],
+                                type: columnMatch[2],
+                                constraints: columnMatch[3]
+                            });
+                        }
+                    }
+                });
+
+                // Create Mermaid diagram syntax
+                let mermaidSyntax = 'erDiagram\n';
+                mermaidSyntax += `    ${tableName} {\n`;
+                
+                // Add columns
+                columns.forEach(col => {
+                    const isPK = col.constraints.includes('PRIMARY KEY');
+                    const isFK = col.constraints.includes('FOREIGN KEY');
+                    const type = col.type.toUpperCase();
+                    
+                    let prefix = '';
+                    if (isPK) prefix = 'PK ';
+                    else if (isFK) prefix = 'FK ';
+                    
+                    mermaidSyntax += `        ${type} ${col.name} ${prefix}\n`;
+                });
+                
+                mermaidSyntax += '    }';
+
+                // Clear and update the container
+                const container = document.getElementById('mermaidDiagram');
+                container.innerHTML = `<pre class="mermaid">${mermaidSyntax}</pre>`;
+                
+                // Render the diagram
+                mermaid.run();
+            } catch (error) {
+                console.error('Error generating diagram:', error);
+                document.getElementById('mermaidDiagram').innerHTML = 
+                    '<p class="error">Error generating visualization. Please check the schema format.</p>';
+            }
+        }
+
+        let costChart = null;  // Global variable to store the chart instance
+
+        function createOrUpdateChart(data) {
+            // Process data to group by request type and model
+            const groupedData = {};
+            const models = new Set();
+            
+            data.forEach(entry => {
+                if (!groupedData[entry.request_type]) {
+                    groupedData[entry.request_type] = {};
+                }
+                if (!groupedData[entry.request_type][entry.model]) {
+                    groupedData[entry.request_type][entry.model] = 0;
+                }
+                groupedData[entry.request_type][entry.model] += entry.estimated_cost;
+                models.add(entry.model);
+            });
+
+            // Define colors for different models
+            const modelColors = {
+                'gpt-4-0125-preview': 'rgba(54, 162, 235, 0.8)',
+                'gpt-4': 'rgba(255, 99, 132, 0.8)',
+                'gpt-4-1106-preview': 'rgba(75, 192, 192, 0.8)',
+                'gpt-3.5-turbo': 'rgba(255, 206, 86, 0.8)',
+                'gpt-3.5-turbo-16k': 'rgba(153, 102, 255, 0.8)',
+                'dall-e-3': 'rgba(255, 159, 64, 0.8)'
+            };
+
+            // Prepare datasets
+            const datasets = Array.from(models).map(model => ({
+                label: model,
+                data: Object.keys(groupedData).map(type => 
+                    (groupedData[type][model] || 0).toFixed(4)
+                ),
+                backgroundColor: modelColors[model] || 'rgba(128, 128, 128, 0.8)'
+            }));
+
+            // Get the canvas context
+            const ctx = document.getElementById('costChart').getContext('2d');
+
+            // Destroy existing chart if it exists
+            if (costChart) {
+                costChart.destroy();
+            }
+
+            // Create new chart
+            costChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(groupedData),
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cost by Request Type and Model',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.dataset.label}: $${context.raw}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Request Type'
+                            }
+                        },
+                        y: {
+                            stacked: true,
+                            title: {
+                                display: true,
+                                text: 'Cost (USD)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return '$' + value.toFixed(4);
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update the existing loadTokenUsage function
+        async function loadTokenUsage() {
+            try {
+                const response = await fetch('/token-usage');
+                const data = await response.json();
+                
+                // Calculate totals
+                let totalTokens = 0;
+                let totalCost = 0;
+                
+                // Update table
+                const tableBody = document.getElementById('tokenUsageBody');
+                tableBody.innerHTML = data.map(entry => {
+                    totalTokens += entry.total_tokens;
+                    totalCost += entry.estimated_cost;
+                    
+                    return `
+                        <tr>
+                            <td>${new Date(entry.timestamp).toLocaleString()}</td>
+                            <td>${entry.request_type}</td>
+                            <td>${entry.model}</td>
+                            <td>${entry.prompt_tokens.toLocaleString()}</td>
+                            <td>${entry.completion_tokens.toLocaleString()}</td>
+                            <td>${entry.total_tokens.toLocaleString()}</td>
+                            <td>$${entry.estimated_cost.toFixed(4)}</td>
+                        </tr>
+                    `;
+                }).join('');
+                
+                // Update summary cards
+                document.getElementById('totalTokens').textContent = totalTokens.toLocaleString();
+                document.getElementById('totalCost').textContent = `$${totalCost.toFixed(4)}`;
+                
+                // Update the chart
+                createOrUpdateChart(data);
+                
+            } catch (error) {
+                console.error('Failed to load token usage:', error);
+            }
+        }
+
+        // Update the existing refreshTokenUsage function to also update the chart
+        async function refreshTokenUsage() {
+            try {
+                const response = await fetch('/token-usage');
+                const data = await response.json();
+                
+                // Calculate totals
+                let totalTokens = 0;
+                let totalCost = 0;
+                
+                // Update table
+                const tableBody = document.getElementById('tokenUsageBody');
+                if (!tableBody) return;
+                
+                tableBody.innerHTML = data.map(entry => {
+                    totalTokens += entry.total_tokens;
+                    totalCost += entry.estimated_cost;
+                    
+                    return `
+                        <tr>
+                            <td>${new Date(entry.timestamp).toLocaleString()}</td>
+                            <td>${entry.request_type}</td>
+                            <td>${entry.model}</td>
+                            <td>${entry.prompt_tokens.toLocaleString()}</td>
+                            <td>${entry.completion_tokens.toLocaleString()}</td>
+                            <td>${entry.total_tokens.toLocaleString()}</td>
+                            <td>$${entry.estimated_cost.toFixed(4)}</td>
+                        </tr>
+                    `;
+                }).join('');
+                
+                // Update summary cards
+                const totalTokensElement = document.getElementById('totalTokens');
+                const totalCostElement = document.getElementById('totalCost');
+                
+                if (totalTokensElement) totalTokensElement.textContent = totalTokens.toLocaleString();
+                if (totalCostElement) totalCostElement.textContent = `$${totalCost.toFixed(4)}`;
+                
+                // Update the chart
+                createOrUpdateChart(data);
+                
+            } catch (error) {
+                console.error('Failed to load token usage:', error);
+            }
+        }
+
+        // Add this function to generate database schema prompts
+        function generateRandomDatabasePrompt() {
+            const domains = [
+                "e-commerce", "healthcare", "education", "finance", "social media",
+                "project management", "human resources", "inventory management",
+                "customer service", "event planning", "real estate", "transportation"
+            ];
+            
+            const entityTypes = [
+                "user activity", "transactions", "employee records", "customer feedback",
+                "inventory tracking", "appointment scheduling", "performance metrics",
+                "document management", "service requests", "audit logs"
+            ];
+            
+            const requirements = [
+                "with timestamp tracking and user references",
+                "including status workflows and approval chains",
+                "with full audit trail and version history",
+                "supporting multiple user roles and permissions",
+                "with geographical and temporal data",
+                "including hierarchical relationships",
+                "with complex state management"
+            ];
+
+            const domain = domains[Math.floor(Math.random() * domains.length)];
+            const entity = entityTypes[Math.floor(Math.random() * entityTypes.length)];
+            const requirement = requirements[Math.floor(Math.random() * requirements.length)];
+
+            return `Design a normalized database schema for a ${domain} system to handle ${entity} ${requirement}. Include appropriate primary keys, foreign keys, and constraints. Return the schema with column definitions and sample data in JSON format.`;
+        }
+
+        // Add this function right after the generateRandomDatabasePrompt function
+        function generateRandomQuery() {
+            const subjects = [
+                "companies", "movies", "books", "technologies", "countries", 
+                "inventions", "scientific discoveries", "sports teams", "universities",
+                "restaurants", "mobile apps", "video games", "programming languages",
+                "cryptocurrencies", "car manufacturers", "fashion brands", "airlines"
+            ];
+            
+            const attributes = [
+                "revenue, market share, employee count", 
+                "ratings, release date, genre, reviews",
+                "publication year, author, sales figures",
+                "founding date, key features, user base",
+                "population, GDP, major exports",
+                "inventor, year, impact factor",
+                "research cost, applications, potential impact",
+                "championships, player count, annual budget",
+                "student population, research funding, rankings"
+            ];
+            
+            const timeframes = [
+                "in the last decade",
+                "of all time",
+                "from 2020 onwards",
+                "in the current market",
+                "throughout history",
+                "in the modern era",
+                "since 2000",
+                "in today's landscape"
+            ];
+            
+            const formats = [
+                `Generate a detailed comparison of the top 5 ${subjects[Math.floor(Math.random() * subjects.length)]} ${timeframes[Math.floor(Math.random() * timeframes.length)]}, including ${attributes[Math.floor(Math.random() * attributes.length)]}`,
+                `Analyze and rank the most successful ${subjects[Math.floor(Math.random() * subjects.length)]} ${timeframes[Math.floor(Math.random() * timeframes.length)]}, with data on ${attributes[Math.floor(Math.random() * attributes.length)]}`,
+                `Create a comprehensive dataset of emerging ${subjects[Math.floor(Math.random() * subjects.length)]} ${timeframes[Math.floor(Math.random() * timeframes.length)]}, including ${attributes[Math.floor(Math.random() * attributes.length)]}`,
+                `Compile statistics and metrics for the most innovative ${subjects[Math.floor(Math.random() * subjects.length)]} ${timeframes[Math.floor(Math.random() * timeframes.length)]}, showing ${attributes[Math.floor(Math.random() * attributes.length)]}`,
+                `Generate a performance analysis of leading ${subjects[Math.floor(Math.random() * subjects.length)]} ${timeframes[Math.floor(Math.random() * timeframes.length)]}, with detailed ${attributes[Math.floor(Math.random() * attributes.length)]}`
+            ];
+
+            // Add JSON format reminder to the query
+            const randomFormat = formats[Math.floor(Math.random() * formats.length)];
+            return `${randomFormat}. Return the data in a structured JSON format with appropriate keys and nested objects.`;
+        }
+
+        // Update the existing AI suggest button handler for the query console
+        document.getElementById('aiSuggestButton').addEventListener('click', async () => {
+            const button = document.getElementById('aiSuggestButton');
+            const promptInput = document.getElementById('prompt');
+            
+            // Disable button and show loading state
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Thinking...';
+            
+            try {
+                const generatedQuery = generateRandomQuery();
+                
+                // Track this as an AI-generated query
+                try {
+                    await fetch('/token-usage', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            request_type: 'AI Generated Query',
+                            model: document.getElementById('model').value,
+                            prompt_tokens: generatedQuery.length,
+                            completion_tokens: 0,
+                            total_tokens: generatedQuery.length
+                        })
+                    });
+                } catch (error) {
+                    console.error('Failed to track token usage:', error);
+                }
+                
+                // Animate the text appearing
+                promptInput.value = '';
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < generatedQuery.length) {
+                        promptInput.value += generatedQuery[i];
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                        // Reset button state
+                        button.disabled = false;
+                        button.innerHTML = '<i class="fas fa-robot"></i> Let AI do it';
+                    }
+                }, 25);
+                
+            } catch (error) {
+                console.error('Error generating suggestion:', error);
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-robot"></i> Let AI do it';
+            }
+        });
+
+        // Add new handler for the database builder AI suggest button
+        document.getElementById('dbAiSuggestButton').addEventListener('click', async () => {
+            const button = document.getElementById('dbAiSuggestButton');
+            const descriptionInput = document.getElementById('tableDescription');
+            
+            // Disable button and show loading state
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Thinking...';
+            
+            try {
+                const generatedPrompt = generateRandomDatabasePrompt();
+                
+                // Track this as an AI-generated database prompt
+                try {
+                    await fetch('/token-usage', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            request_type: 'AI Generated Schema',
+                            model: 'gpt-4-0125-preview',  // Default model for schema generation
+                            prompt_tokens: generatedPrompt.length,
+                            completion_tokens: 0,
+                            total_tokens: generatedPrompt.length
+                        })
+                    });
+                } catch (error) {
+                    console.error('Failed to track token usage:', error);
+                }
+                
+                // Animate the text appearing
+                descriptionInput.value = '';
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    if (i < generatedPrompt.length) {
+                        descriptionInput.value += generatedPrompt[i];
+                        i++;
+                    } else {
+                        clearInterval(typeInterval);
+                        // Reset button state
+                        button.disabled = false;
+                        button.innerHTML = '<i class="fas fa-robot"></i> Let AI do it';
+                    }
+                }, 25);
+                
+            } catch (error) {
+                console.error('Error generating suggestion:', error);
+                button.disabled = false;
+                button.innerHTML = '<i class="fas fa-robot"></i> Let AI do it';
+            }
+        });
+
+        let analyticsChart = null;
+
+        function updateDataVisualization() {
+            const chartType = document.getElementById('chartType').value;
+            const xAxis = document.getElementById('xAxis').value;
+            const yAxis = document.getElementById('yAxis').value;
+            const sampleData = window.currentSampleData;
+
+            if (!sampleData || !xAxis || !yAxis) return;
+
+            // Process data based on selected metrics
+            const processedData = processDataForChart(sampleData, xAxis, yAxis, chartType);
+            
+            // Create or update chart
+            createAnalyticsChart(processedData, chartType, xAxis, yAxis);
+        }
+
+        function processDataForChart(data, xAxis, yAxis, chartType) {
+            // Group and aggregate data based on chart type
+            if (chartType === 'pie') {
+                const grouped = data.reduce((acc, item) => {
+                    const key = item[xAxis];
+                    if (!acc[key]) acc[key] = 0;
+                    acc[key] += parseFloat(item[yAxis]) || 1;
+                    return acc;
+                }, {});
+
+                return {
+                    labels: Object.keys(grouped),
+                    datasets: [{
+                        data: Object.values(grouped),
+                        backgroundColor: generateColors(Object.keys(grouped).length)
+                    }]
+                };
+            }
+
+            // For other chart types
+            return {
+                labels: data.map(item => item[xAxis]),
+                datasets: [{
+                    label: yAxis,
+                    data: data.map(item => parseFloat(item[yAxis]) || 0),
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            };
+        }
+
+        function generateColors(count) {
+            const colors = [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 159, 64, 0.8)'
+            ];
+
+            if (count <= colors.length) {
+                return colors.slice(0, count);
+            }
+
+            // Generate additional colors if needed
+            const additional = Array(count - colors.length).fill().map(() => {
+                return `hsla(${Math.random() * 360}, 70%, 50%, 0.8)`;
+            });
+
+            return [...colors, ...additional];
+        }
+
+        function createAnalyticsChart(data, chartType, xAxis, yAxis) {
+            const ctx = document.getElementById('analyticsChart').getContext('2d');
+            
+            if (analyticsChart) {
+                analyticsChart.destroy();
+            }
+
+            const chartConfig = {
+                type: chartType,
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `${yAxis} by ${xAxis}`,
+                            font: { size: 16 }
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    },
+                    scales: chartType !== 'pie' ? {
+                        x: {
+                            title: {
+                                display: true,
+                                text: xAxis
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: yAxis
+                            },
+                            beginAtZero: true
+                        }
+                    } : undefined
+                }
+            };
+
+            analyticsChart = new Chart(ctx, chartConfig);
+        }
+
+        function initializeAnalytics() {
+            if (!window.currentSampleData) return;
+
+            const xAxisSelect = document.getElementById('xAxis');
+            const yAxisSelect = document.getElementById('yAxis');
+            
+            // Get all columns from the sample data
+            const columns = Object.keys(window.currentSampleData[0]);
+            
+            // Clear existing options
+            xAxisSelect.innerHTML = '';
+            yAxisSelect.innerHTML = '';
+            
+            // Add options for each column
+            columns.forEach(column => {
+                const xOption = document.createElement('option');
+                const yOption = document.createElement('option');
+                
+                xOption.value = column;
+                xOption.textContent = column;
+                yOption.value = column;
+                yOption.textContent = column;
+                
+                xAxisSelect.appendChild(xOption);
+                yAxisSelect.appendChild(yOption);
+            });
+            
+            // Initialize visualization
+            updateDataVisualization();
+        }
+
+        document.getElementById('generateFlashcards').addEventListener('click', async () => {
+            const button = document.getElementById('generateFlashcards');
+            const flashcardsGrid = document.getElementById('flashcardsGrid');
+            
+            // Create and show loading modal
+            const loadingModal = document.createElement('div');
+            loadingModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+            
+            const loadingContent = document.createElement('div');
+            loadingContent.style.cssText = `
+                background: white;
+                padding: 20px;
+                border-radius: 8px;
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            `;
+            loadingContent.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: #007bff;"></i>
+                </div>
+                <div>Generating AWS Certification Questions...</div>
+            `;
+            
+            loadingModal.appendChild(loadingContent);
+            document.body.appendChild(loadingModal);
+            
+            // Disable button and show loading state
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating...';
+            
+            try {
+                const response = await fetch('/generate-flashcards', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Clear existing flashcards
+                    flashcardsGrid.innerHTML = '';
+                    
+                    // Add new flashcards with animation
+                    data.flashcards.forEach((card, index) => {
+                        const flashcardHTML = `
+                            <div class="flashcard" style="animation: slideIn 0.3s ease-out ${index * 0.1}s forwards; opacity: 0;">
+                                <div class="flashcard-inner">
+                                    <div class="flashcard-front">
+                                        <div class="flashcard-question">
+                                            <strong>Question ${index + 1}:</strong><br><br>
+                                            ${card.question}
+                                        </div>
+                                    </div>
+                                    <div class="flashcard-back">
+                                        <div class="flashcard-answer">
+                                            <strong>Answer:</strong><br><br>
+                                            ${card.answer}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        flashcardsGrid.insertAdjacentHTML('beforeend', flashcardHTML);
+                    });
+                    
+                    // Update token usage
+                    refreshTokenUsage();
+                } else {
+                    console.error('Failed to generate flashcards:', data.error);
+                    // Show error message to user
+                    flashcardsGrid.innerHTML = `
+                        <div style="color: #dc3545; text-align: center; padding: 20px;">
+                            Failed to generate flashcards. Please try again.
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error generating flashcards:', error);
+                // Show error message to user
+                flashcardsGrid.innerHTML = `
+                    <div style="color: #dc3545; text-align: center; padding: 20px;">
+                        An error occurred while generating flashcards. Please try again.
+                    </div>
+                `;
+            } finally {
+                // Remove loading modal
+                document.body.removeChild(loadingModal);
+                
+                // Reset button state
+                button.disabled = false;
+                button.innerHTML = 'Generate 5 Flashcards';
+            }
+        });
+
+        // Add this CSS for the slide-in animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateY(20px);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Add click handler for flipping cards
+        document.addEventListener('click', function(e) {
+            const flashcard = e.target.closest('.flashcard');
+            if (flashcard) {
+                flashcard.classList.toggle('flipped');
+            }
+        });
+
+        // Update the flashcard history loading function
+        async function loadFlashcardsHistory() {
+            try {
+                const response = await fetch('/history/flashcards');
+                const data = await response.json();
+                const historyContainer = document.getElementById('flashcardsHistory');
+                
+                const viewToggle = `
+                    <div class="history-view-toggle">
+                        <button class="active" onclick="toggleHistoryView('cards')">Cards View</button>
+                        <button onclick="toggleHistoryView('json')">JSON View</button>
+                    </div>
+                `;
+                
+                const cardsView = data.map(set => `
+                    <div class="history-item">
+                        <div class="history-timestamp">${new Date(set.timestamp).toLocaleString()}</div>
+                        <div class="flashcards-grid">
+                            ${set.flashcards.flashcards.map(card => `
+                                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                                    <div class="flashcard-inner">
+                                        <div class="flashcard-front">
+                                            <div class="flashcard-question">${card.question}</div>
+                                        </div>
+                                        <div class="flashcard-back">
+                                            <div class="flashcard-answer">${card.answer}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `).join('');
+                
+                historyContainer.innerHTML = viewToggle + cardsView;
+            } catch (error) {
+                console.error('Failed to load flashcards history:', error);
+                document.getElementById('flashcardsHistory').innerHTML = `
+                    <div style="color: #dc3545; text-align: center; padding: 20px;">
+                        Failed to load flashcard history. Please try again.
+                    </div>
+                `;
+            }
+        }
+
+        // Add the JSON view toggle function
+        function toggleHistoryView(view) {
+            const historyContainer = document.getElementById('flashcardsHistory');
+            const buttons = document.querySelectorAll('.history-view-toggle button');
+            buttons.forEach(btn => btn.classList.toggle('active', btn.textContent.toLowerCase().includes(view)));
+            
+            if (view === 'json') {
+                fetch('/history/flashcards')
+                    .then(response => response.json())
+                    .then(data => {
+                        historyContainer.innerHTML = `
+                            <div class="history-view-toggle">
+                                <button onclick="toggleHistoryView('cards')">Cards View</button>
+                                <button class="active" onclick="toggleHistoryView('json')">JSON View</button>
+                            </div>
+                            <pre style="background: #f8f9fa; padding: 15px; border-radius: 8px; overflow-x: auto;">
+                                ${JSON.stringify(data, null, 2)}
+                            </pre>
+                        `;
+                    })
+                    .catch(error => console.error('Error loading JSON view:', error));
+            } else {
+                loadFlashcardsHistory();
+            }
+        }
+
+        // Update the existing switchSubTab function to handle flashcards history
+        const originalSwitchSubTab = window.switchSubTab;
+        window.switchSubTab = function(widget, tabName) {
+            if (widget === 'flashcards' && tabName === 'history') {
+                loadFlashcardsHistory();
+            }
+            originalSwitchSubTab(widget, tabName);
+        };
+    </script>
+
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html> 
